@@ -1,22 +1,26 @@
+// Dependencies
 const express = require("express");
-const cors = require("cors")
+const cors = require("cors");
+//const codefusionController = require('./controllers/codefusionControllers.js');
 
-//configuration
+// Configuration
 const app = express();
 
-//middleware
+// Middleware
 app.use(cors());
-app.use(express.json());
-//const codefusionController = require('./controllers/codefusionControllers.js')
+app.use(express.json()); // parses incoming json request
 
-//routes
+
+// Routes
 app.get("/", (req, res) => {
-    res.send("Welcome to Codefusion!")
+    res.send("Welcome to CodeFusion!")
 })
+
+// app.use("");
 
 app.get("*", (req, res) => {
   console.log("404!");
   res.status(404).json({ error: "Page Not Found" });
 });
 
-module.exports = app
+module.exports = app;
