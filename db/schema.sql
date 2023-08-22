@@ -74,9 +74,6 @@ CREATE TABLE progress(
     points INT DEFAULT 0
 );
 
-
-
-
 CREATE TABLE submission(
     created_date TIMESTAMP DEFAULT current_timestamp,
     submission_id SERIAL PRIMARY KEY,
