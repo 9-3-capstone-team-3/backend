@@ -50,7 +50,6 @@ CREATE TABLE question_type(
 CREATE TABLE answer(
     created_date TIMESTAMP DEFAULT current_timestamp,
     answer_id SERIAL PRIMARY KEY,
-    question_id INT,
     answer_text TEXT,
     is_correct BOOLEAN
 );
@@ -61,11 +60,15 @@ CREATE TABLE question(
     prompt VARCHAR(255) NOT NULL,
     quiz_id INT REFERENCES quiz_video(quiz_id),
     level_id INT REFERENCES level(level_id),
-    question_type_id INT REFERENCES question_type(question_type_id),
-    answer_id INT REFERENCES answer(answer_id)
+    question_type_id INT REFERENCES question_type(question_type_id)
+    
 );
 
-ALTER TABLE answer ADD FOREIGN KEY (question_id) REFERENCES question(question_id);
+CREATE TABLE question_answer_mapping(
+    question_id INT REFERENCES question(question_id),
+    answer_id INT REFERENCES answer(answer_id),
+    PRIMARY KEY(question_id, answer_id)
+);
 
 CREATE TABLE progress(
     created_date TIMESTAMP DEFAULT current_timestamp,
