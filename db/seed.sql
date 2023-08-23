@@ -1,24 +1,27 @@
 \c codefusion_db
-
+--Level 1: Boolean, Level 2: Multiple-Choice, Level 3: Single, Level 4: All types(stretch goal)
 -- Insert levels
 INSERT INTO level (level_name) 
 VALUES
-('Beginnner'), ('Intermediate'), ('Advanced');
+('Level 1'), ('Level 2'), ('Level 3'), ('Level 4');
 
 -- Insert users
 INSERT INTO users (username, email, firstname, lastname, password, level_id) VALUES
 ('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 1);
 
+-- Insert quiz (set of questions)
+INSERT INTO quiz(level, name);
+
 -- Insert quiz videos
-INSERT INTO quiz_video (quiz_url, quiz_name, quiz_priority) VALUES
-('https://youtu.be/hfsP3lXoSMc', 'git basics', 1);
+INSERT INTO quiz_video (url, quiz_id) VALUES
+('https://youtu.be/hfsP3lXoSMc');
 
 -- Insert question types
-INSERT INTO question_type(question_type_name) VALUES
-('Multiple Choice'), ('Single Typed'), ('Boolean');
+INSERT INTO prompt_type(name) VALUES
+('Multiple Choice'), ('Single'), ('Boolean');
 
 -- Insert questions (without answer_id)
-INSERT INTO question (prompt, quiz_id, level_id, question_type_id) VALUES
+INSERT INTO question (prompt, quiz_id, question_type_id) VALUES
 ('What is git?', 1, 1, 2),
 ('Where do we get git from?', 1, 1, 3),
 ('Where do we use git commands?', 1, 1, 2),
@@ -26,7 +29,7 @@ INSERT INTO question (prompt, quiz_id, level_id, question_type_id) VALUES
 ('Why should we learn how to use git?', 1, 1, 2);
 
 -- Insert answers (without question_id)
-INSERT INTO answer (answer_text, is_correct) VALUES
+INSERT INTO answer (prompt_type, answer_text, is_correct) VALUES
 ('A version control system', true),
 ('A garbage can', false),
 ('A remote way to store code', false),
@@ -43,23 +46,13 @@ INSERT INTO answer (answer_text, is_correct) VALUES
 ('git cures boredom', false),
 ('git can crash our computers and cause major problems', false);
 
-
-
-INSERT INTO question_answer_mapping (question_id, answer_id) VALUES
-(1, 1), (1, 2), (1, 3),
-(2, 4), (2, 5), (2, 6),
-(3, 7), (3, 8), (3, 9),
-(4, 10), (4, 11), (4, 12),
-(5, 13), (5, 14), (5, 15);
-
--- Insert progress
-INSERT INTO progress (user_id, points) VALUES
-(1, 0);
-
-
 -- Insert submission (without question_id)
-INSERT INTO submission (user_id, user_answer, is_correct) VALUES
+INSERT INTO submission (user_id, user_answer, is_correct = null) VALUES
 (1, 'A version control system', true);
+
+-- -- Insert progress
+-- INSERT INTO progress (user_id, points) VALUES
+-- (1, 0);
 
 
 
