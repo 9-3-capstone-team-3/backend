@@ -51,3 +51,15 @@ INSERT INTO question_answer_mapping (question_id, answer_id) VALUES
 (3, 7), (3, 8), (3, 9),
 (4, 10), (4, 11), (4, 12),
 (5, 13), (5, 14), (5, 15);
+
+-- Insert progress
+INSERT INTO progress (user_id, points) VALUES
+(1, 0);
+
+
+-- Insert submission (without question_id)
+INSERT INTO submission (user_id, user_answer, is_correct) VALUES
+(1, 'A version control system', true);
+
+
+
