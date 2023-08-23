@@ -1,6 +1,7 @@
 // Dependencies
 const express = require("express");
 const cors = require("cors");
+const userController = require('./controllers/userController.js');
 //const codefusionController = require('./controllers/codefusionControllers.js');
 
 // Configuration
@@ -16,7 +17,7 @@ app.get("/", (req, res) => {
     res.send("Welcome to CodeFusion!")
 })
 
-// app.use("");
+app.use('/user, userController');
 
 app.get("*", (req, res) => {
   console.log("404!");
