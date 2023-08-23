@@ -1,10 +1,10 @@
 -- If database exist delete it
-DROP DATABASE IF EXISTS codefusion_db
+DROP DATABASE IF EXISTS codefusion_db;
 
 -- Create database
-CREATE DATABASE codefusion_db
+CREATE DATABASE codefusion_db;
 
-\c codefusion_db
+\c codefusion_db;
 
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS progress CASCADE;
