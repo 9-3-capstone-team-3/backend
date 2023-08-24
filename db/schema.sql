@@ -33,55 +33,49 @@ CREATE TABLE level(
     level_id SERIAL PRIMARY KEY,
     level_name TEXT NOT NULL
 );
+CREATE TABLE quiz (
+    created_date TIMESTAMP DEFAULT current_timestamp,
+    quiz_id SERIAL PRIMARY KEY,
+    name TEXT,
+    level_id INT REFERENCES level(level_id)
+);
 
 CREATE TABLE quiz_video(
     created_date TIMESTAMP DEFAULT current_timestamp,
-    quiz_id SERIAL PRIMARY KEY,
-    quiz_url TEXT,
-    quiz_name TEXT,
-    quiz_priority INT
+    quiz_video_id SERIAL PRIMARY KEY,
+    url VARCHAR(255)
 );
 
-CREATE TABLE question_type(
-    question_type_id SERIAL PRIMARY KEY,
-    question_type_name TEXT NOT NULL
+CREATE TABLE prompt_type(
+    prompt_type_id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL
+);
+CREATE TABLE question(
+    question_id SERIAL PRIMARY KEY,
+    created_date TIMESTAMP DEFAULT current_timestamp,
+    prompt VARCHAR(255) NOT NULL,
+    quiz_id INT REFERENCES quiz(quiz_id),
+    prompt_type_id INT REFERENCES prompt_type(prompt_type_id)
+    
 );
 
 CREATE TABLE answer(
     created_date TIMESTAMP DEFAULT current_timestamp,
     answer_id SERIAL PRIMARY KEY,
     answer_text TEXT,
-    is_correct BOOLEAN
-);
-
-CREATE TABLE question(
-    question_id SERIAL PRIMARY KEY,
-    created_date TIMESTAMP DEFAULT current_timestamp,
-    prompt VARCHAR(255) NOT NULL,
-    quiz_id INT REFERENCES quiz_video(quiz_id),
-    level_id INT REFERENCES level(level_id),
-    question_type_id INT REFERENCES question_type(question_type_id)
-    
-);
-
-CREATE TABLE question_answer_mapping(
+    is_correct BOOLEAN,
     question_id INT REFERENCES question(question_id),
-    answer_id INT REFERENCES answer(answer_id),
-    PRIMARY KEY(question_id, answer_id)
+    prompt_type_id INT REFERENCES prompt_type(prompt_type_id)
 );
 
-CREATE TABLE progress(
-    created_date TIMESTAMP DEFAULT current_timestamp,
-    progress_id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(user_id),
-    points INT DEFAULT 0
-);
+
+
+
 
 CREATE TABLE submission(
     created_date TIMESTAMP DEFAULT current_timestamp,
     submission_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
     user_answer VARCHAR(255),
-    question_id INT REFERENCES question(question_id),
     is_correct BOOLEAN
 );
