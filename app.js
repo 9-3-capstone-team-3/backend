@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const userController = require('./controllers/userControllers.js'); 
+const quizController = require('./controllers/quizControllers.js');
 //const codefusionController = require('./controllers/codefusionControllers.js'); -- (unused controller, need to rename)
 
 // Configuration
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 })
 
 app.use('/users', userController);
+app.use('/quiz', quizController)
 
 app.get("*", (req, res) => {
   console.log("404!");
