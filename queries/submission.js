@@ -1,4 +1,4 @@
-const db = reqire("../db/dbConfig");
+const db = require("../db/dbConfig");
 
 const getAllSubmisssions = async () => { 
     try {
