@@ -1,6 +1,6 @@
 const express = require("express");
 const user = express.Router();
-// const validateUser = require("");
+const validateUser = require("../validations/validateUser");
 
 const {
   getAllUsers,
