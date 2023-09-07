@@ -9,7 +9,7 @@ VALUES
 INSERT INTO users (username, email, firstname, lastname, password, level_id) VALUES
 ('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 1);
 
--- Insert quiz (set of questions)
+-- Insert quiz (set of questions) (cards on dashboard)
 INSERT INTO quiz(level_id, name) VALUES 
 (1, 'Git Basics');
 
