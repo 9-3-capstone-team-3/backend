@@ -59,6 +59,13 @@ CREATE TABLE question(
     
 );
 
+CREATE TABLE intro_question(
+    id SERIAL PRIMARY KEY,
+    created_date TIMESTAMP DEFAULT current_timestamp,
+    prompt_type_id INT REFERENCES prompt_type(prompt_type_id),
+    prompt VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE answer(
     created_date TIMESTAMP DEFAULT current_timestamp,
     answer_id SERIAL PRIMARY KEY,

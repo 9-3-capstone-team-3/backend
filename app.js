@@ -8,6 +8,7 @@ const userController = require("./controllers/userControllers.js");
 const quizController = require("./controllers/quizControllers.js");
 const answerController = require("./controllers/answerControllers.js");
 const questionController = require("./controllers/questionControllers.js");
+const introquestionController = require("./controllers/introQuestionControllers.js")
 
 const { verifyUser } = require("./queries/user.js");
 
@@ -70,6 +71,7 @@ app.use("/users", userController);
 app.use("/quiz", quizController);
 app.use("/answers", answerController);
 app.use("/questions", questionController);
+app.use("/introquestions", introquestionController);
 
 app.get("*", (req, res) => {
   console.log("404!");

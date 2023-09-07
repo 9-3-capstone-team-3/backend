@@ -30,8 +30,6 @@ INSERT INTO prompt_type(name) VALUES
 
 -- Insert questions (without answer_id)
 INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
-('Software developers work on teams to complete projects', 1, 3),
-('Developers should use a version tracker to keep track of code changes, in case something goes wrong', 1, 3),
 ('What is git?', 2, 1),
 ('Where do we get git from?', 2, 1),
 ('Where do we use git commands?', 2, 1),
@@ -47,33 +45,34 @@ INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
 ('When you git commit, you must git push to send your commits to the remote GitHub',5,3);
 --RETURNING question_id;
 
+INSERT INTO intro_question (prompt_type_id, prompt) VALUES 
+(3, 'Software developers work on teams to complete projects'),
+(3, 'Developers should use a version tracker to keep track of code changes, in case something goes wrong');
 
 INSERT INTO answer (answer_text, is_correct, question_id, prompt_type_id) VALUES
-('True', true, 1, 3),
-('True', true, 2, 3),
-('A version control system', true, 3, 1),
-('A garbage can', false, 3, 1),
-('A remote way to store code', false, 3, 1),
-('Download git from git.scm.com', true, 4, 1),
-('It is already built into our computers', false, 4, 1),
-('Walmart', false, 4, 1),
-('On the terminal', true, 5, 1),
-('In space', false, 5, 1),
-('At a command center', false, 5, 1),
-('only stores code', true, 6, 1),
-('writes your code for you', false, 6, 1),
-('debugs your code', false, 6, 1),
-('Git is the most popular choice for version control for developers today', true, 7, 1),
-('git cures boredom', false, 7, 1),
-('git can crash our computers and cause major problems', false, 7, 1),
-('git config --global user.name (your name here)',true, 8,2),
-('git config --global core.editor (code --wait)',true,9,2),
+('A version control system', true, 1, 1),
+('A garbage can', false, 1, 1),
+('A remote way to store code', false, 1, 1),
+('Download git from git.scm.com', true, 2, 1),
+('It is already built into our computers', false, 2, 1),
+('Walmart', false, 2, 1),
+('On the terminal', true, 3, 1),
+('In space', false, 3, 1),
+('At a command center', false, 3, 1),
+('only stores code', true, 4, 1),
+('writes your code for you', false, 4, 1),
+('debugs your code', false, 4, 1),
+('Git is the most popular choice for version control for developers today', true, 5, 1),
+('git cures boredom', false, 5, 1),
+('git can crash our computers and cause major problems', false, 5, 1),
+('git config --global user.name (your name here)',true, 6,2),
+('git config --global core.editor (code --wait)',true,7,2),
+('true',true, 8, 3),
+('git init',true, 9, 2),
 ('true',true, 10, 3),
-('git init',true, 11, 2),
-('true',true, 12, 3),
-('git merge branch_name',true, 13, 2),
-('git checkout -b branch_name',true, 14, 2),
-('true',true, 15, 3);
+('git merge branch_name',true, 11, 2),
+('git checkout -b branch_name',true, 12, 2),
+('true',true, 13, 3);
 
 
 -- Insert submission (without question_id)
