@@ -24,7 +24,7 @@ CREATE TABLE users(
     lastname VARCHAR(255),
     password VARCHAR(255) NOT NULL,
     level_id INT,
-    last_login TIMESTAMP
+    last_login TIMESTAMP,
     hashed_password BLOB NOT NULL,
     salt BLOB NOT NULL
 );
@@ -80,4 +80,4 @@ CREATE TABLE submission(
     user_id INT REFERENCES users(user_id),
     user_answer VARCHAR(255),
     is_correct BOOLEAN
-);x
+);

@@ -4,6 +4,7 @@ const cors = require("cors");
 const userController = require('./controllers/userControllers.js'); 
 const quizController = require('./controllers/quizControllers.js');
 const answerController = require('./controllers/answerControllers.js');
+const questionController = require('./controllers/questionControllers.js')
 const { func } = require("./db/dbConfig.js");
 //const codefusionController = require('./controllers/codefusionControllers.js'); -- (unused controller, need to rename)
 
@@ -13,11 +14,11 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json()); // parses incoming json request
-app.post('/login', 
-  passport.authenticate('local', {failureRedirect: '/login'}), 
-  function(req, res) {
-    res.redirect('/');
-  });
+// app.post('/login', 
+//   passport.authenticate('local', {failureRedirect: '/login'}), 
+//   function(req, res) {
+//     res.redirect('/');
+//   });
 
 
 // Routes
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 app.use('/users', userController);
 app.use('/quiz', quizController);
 app.use('/answers', answerController)
+app.use('/questions', questionController)
 
 app.get("*", (req, res) => {
   console.log("404!");
