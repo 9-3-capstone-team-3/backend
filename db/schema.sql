@@ -25,8 +25,6 @@ CREATE TABLE users(
     password VARCHAR(255) NOT NULL,
     level_id INT,
     last_login TIMESTAMP
-    hashed_password BLOB NOT NULL,
-    salt BLOB NOT NULL
 );
 
 
