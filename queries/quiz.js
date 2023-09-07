@@ -1,17 +1,17 @@
 const db = require("../db/dbConfig");
 
-const getAllQuestions = async () => {
+const getAllQuiz = async () => {
   try {
-    const result = await db.any("SELECT * FROM question");
+    const result = await db.any("SELECT * FROM quiz");
     return { result };
   } catch (error) {
     return { error };
   }
 };
 
-const getQuestion = async (id) => {
+const getQuiz = async (id) => {
   try {
-    const result = await db.one(`SELECT * FROM question where id=${id}`);
+    const result = await db.one(`SELECT * FROM quiz where id=${id}`);
     return { result };
   } catch (error) {
     return { error };
@@ -20,6 +20,6 @@ const getQuestion = async (id) => {
  
 
   module.exports = {
-    getAllQuestions,
-    getQuestion
+    getAllQuiz,
+    getQuiz
   };

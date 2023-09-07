@@ -2,13 +2,13 @@ const express = require("express");
 const quiz = express.Router();
 
 const {
-    getAllQuestions,
-    getQuestion  } = require('../queries/quiz.js')
+    getAllQuiz,
+    getQuiz  } = require('../queries/quiz.js')
 
 
 //index
 quiz.get("/", async (req, res) => {
-    const { error, result } = await getAllQuestions();
+    const { error, result } = await getAllQuiz();
     if (error) {
       res.status(500).json({ error: "server error" });
     } else {
@@ -19,9 +19,9 @@ quiz.get("/", async (req, res) => {
 //show
 quiz.get("/:id", async (req, res) => {
     const { id } = req.params;
-    const { error, result } = await getQuestion(id);
+    const { error, result } = await getQuiz(id);
     if (error?.code === 0) {
-      res.status(404).json({ error: "Question not found" });
+      res.status(404).json({ error: "Quiz not found" });
     } else if (error) {
       res.status(500).json({ error: "server error" });
     } else {

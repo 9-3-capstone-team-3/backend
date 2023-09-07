@@ -1,4 +1,4 @@
-const db = reqire("../db/dbConfig");
+const db = require("../db/dbConfig");
 
  const getAllQuestions = async () => {
     try {
@@ -11,7 +11,7 @@ const db = reqire("../db/dbConfig");
 
  const getQuestion = async () => {
     try {
-        const result = await db.any(`SELECT * FROM question WHERE id={id}`);
+        const result = await db.any(`SELECT * FROM question WHERE id=${id}`);
         return { result };
     } catch (error) {
         return {error};

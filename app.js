@@ -7,6 +7,8 @@ const session = require("express-session")
 const userController = require("./controllers/userControllers.js");
 const quizController = require("./controllers/quizControllers.js");
 const answerController = require("./controllers/answerControllers.js");
+const questionController = require("./controllers/questionControllers.js");
+
 const { verifyUser } = require("./queries/user.js");
 
 
@@ -67,6 +69,7 @@ app.get("/", (req, res) => {
 app.use("/users", userController);
 app.use("/quiz", quizController);
 app.use("/answers", answerController);
+app.use("/questions", questionController);
 
 app.get("*", (req, res) => {
   console.log("404!");
