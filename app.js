@@ -9,6 +9,7 @@ const quizController = require("./controllers/quizControllers.js");
 const answerController = require("./controllers/answerControllers.js");
 const { verifyUser } = require("./queries/user.js");
 
+
 // Configuration
 const app = express();
 
@@ -53,12 +54,14 @@ passport.deserializeUser(async function (id, done) {
 });
 
 
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
 app.get("/", (req, res) => {
   res.send("Welcome to CodeFusion!");
+
 });
 
 app.use("/users", userController);
