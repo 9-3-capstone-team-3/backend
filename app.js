@@ -1,11 +1,7 @@
 // Dependencies
 const express = require("express");
 const cors = require("cors");
-const userController = require('./controllers/userControllers.js'); 
-const quizController = require('./controllers/quizControllers.js');
-const answerController = require('./controllers/answerControllers.js');
-const questionController = require('./controllers/questionControllers.js')
-const { func } = require("./db/dbConfig.js");
+
 //const codefusionController = require('./controllers/codefusionControllers.js'); -- (unused controller, need to rename)
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
