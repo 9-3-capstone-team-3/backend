@@ -9,7 +9,6 @@ const getAllUsers = async () => {
     return { error };
   }
 };
-//just a note
 
 const getUser = async (id) => {
   try {
