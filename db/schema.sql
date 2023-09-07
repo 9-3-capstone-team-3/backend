@@ -19,14 +19,12 @@ CREATE TABLE users(
     created_date TIMESTAMP DEFAULT current_timestamp,
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
-    email VARCHAR(255),
+    email VARCHAR(255) UNIQUE NOT NULL,
     firstname VARCHAR(255),
     lastname VARCHAR(255),
     password VARCHAR(255) NOT NULL,
     level_id INT,
-    last_login TIMESTAMP,
-    hashed_password BLOB NOT NULL,
-    salt BLOB NOT NULL
+    last_login TIMESTAMP
 );
 
 

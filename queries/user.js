@@ -1,4 +1,5 @@
 const db = require("../db/dbConfig");
+const bcrypt = require("bcrypt");
 
 const getAllUsers = async () => {
   try {
@@ -8,6 +9,7 @@ const getAllUsers = async () => {
     return { error };
   }
 };
+//just a note
 
 const getUser = async (id) => {
   try {
@@ -20,14 +22,26 @@ const getUser = async (id) => {
  
 const createUser = async (user) => {
     try {
+        const hashedPassword = await bcrypt.hash(user.password, 10);//use bycrpyt to hash the user password
         const result = await db.one(`INSERT INTO users(username, email, firstname, lastname, password, level_id) 
         VALUES($1, $2, $3, $4, $5, $6) 
         RETURNING *;`,
-        [user.username, user.email, user.firstname, user.lastname, user.password, user.level_id]
+        [user.username, user.email, user.firstname, user.lastname, hashedPassword, user.level_id]
         );
         return { result };
     } catch (error) {
         return { error };
+    }
+};
+
+const verifyUser = async (email, password) => {
+    try {
+      const user = await db.oneOrNone(`SELECT password FROM users WHERE email = $1`, [email]);
+      if (!user) return false;
+      const isMatch = await bcrypt.compare(password, user.password);
+      return isMatch ? user : false;
+    } catch (error) {
+      throw error;
     }
 };
 
@@ -43,8 +57,9 @@ const deleteUser = async (id) => {
     }
   };
   
-  const updateUser = async (id, review) => {
+  const updateUser = async (id, user) => {
     try {
+      const hashedPassword = await bcrypt.hash(user.password, 10)//if password is updated hash the new one
       const result = await db.one(
         `UPDATE users SET username=$1, email=$2, firstname=$3, lastname=$4, password=$5, level_id=$6 WHERE id=$7 RETURNING *`,
         [
@@ -52,7 +67,7 @@ const deleteUser = async (id) => {
           user.email,
           user.firstname,
           user.lastname,
-          user.password,
+          hashedPassword,
           user.level_id,
           id,
         ]
@@ -67,6 +82,7 @@ const deleteUser = async (id) => {
     getAllUsers,
     getUser,
     createUser,
+    verifyUser,
     deleteUser,
     updateUser,
   };

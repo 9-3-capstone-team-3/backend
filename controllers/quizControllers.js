@@ -2,8 +2,8 @@ const express = require("express");
 const quiz = express.Router();
 
 const {
-    getAllQuiz,  
-    getQuiz} = require('../queries/quiz.js')
+    getAllQuiz,
+    getQuiz  } = require('../queries/quiz.js')
 
 
 //index

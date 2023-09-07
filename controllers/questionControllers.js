@@ -1,6 +1,7 @@
 const express = require("express");
 const question = express.Router();
 
+// const validateQueston = require("./validations/validateQuestion");
 const {
     getAllQuestions,
     getQuestion,
