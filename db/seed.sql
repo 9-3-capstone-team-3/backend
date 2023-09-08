@@ -46,7 +46,7 @@ INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
 --RETURNING question_id;
 
 INSERT INTO intro_question (prompt_type_id, prompt) VALUES 
-(3, 'Software developers work on teams to complete projects'),
+(3, 'Software developers work on completely alone to complete projects'),
 (3, 'Developers should use a version tracker to keep track of code changes, in case something goes wrong');
 
 INSERT INTO answer (answer_text, is_correct, question_id, prompt_type_id) VALUES
