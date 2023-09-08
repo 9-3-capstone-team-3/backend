@@ -78,4 +78,4 @@ CREATE TABLE submission(
     user_id INT REFERENCES users(user_id),
     user_answer VARCHAR(255),
     is_correct BOOLEAN
-);x
+);

@@ -12,9 +12,15 @@ const { verifyUser } = require("./queries/user.js");
 
 // Configuration
 const app = express();
+const corsOptions = {
+  origin: 'http://localhost:3000',  // Replace this with your frontend's address
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,  // This allows the session cookie to be sent back and forth
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json()); // parses incoming json request
 app.use(session({
   secret: 'top_secret_key',
@@ -24,28 +30,36 @@ app.use(session({
 }));
 //intialize passport middlewarea
 passport.use(
-  new LocalStrategy(async function (email, password, done) {
+  new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },async function (email, password, done) {
+    console.log(email, password);//remove this after debugging
     try {
       const user = await verifyUser(email, password);
+      console.log(user);//remove this after debugging
       if (!user) {
-       return done(null, false, { message: "Incorrect email or password" });
+       return done(null, false, { message: "authentication failed" });
       }
        return done(null, user);
     } catch (error) {
+      console.log(error);//remove this after debugging
       return done(error);
     }
   })
 );
 
 passport.serializeUser(function (user, done) {
-  done(null, user.id);
+  done(null, user.user_id);
 });
-passport.deserializeUser(async function (id, done) {
+passport.deserializeUser(async function (user_id, done) {
   try{
-    const { error, result} = await getUser(id);
+    const { error, result} = await getUser(user_id);
+    console.log(result);//remove this after debugging
     if (error){
       done(error, null)
     } else {
+      console.log(result);//remove this after debugging
       done(null, result);
     }
   } catch (error){

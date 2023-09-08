@@ -1,6 +1,8 @@
 const db = require("../db/dbConfig");
 const bcrypt = require("bcrypt");
 
+const saltRounds = 10
+
 const getAllUsers = async () => {
   try {
     const result = await db.any("SELECT * FROM users");
@@ -11,78 +13,108 @@ const getAllUsers = async () => {
 };
 //just a note
 
-const getUser = async (id) => {
+const getUser = async (user_id) => {
   try {
-    const result = await db.one(`SELECT * FROM users where id=${id}`);
+    const result = await db.one("SELECT * FROM users WHERE user_id=$1", [user_id]);
+
     return { result };
   } catch (error) {
     return { error };
   }
 };
- 
+
 const createUser = async (user) => {
-    try {
-        const hashedPassword = await bcrypt.hash(user.password, 10);//use bycrpyt to hash the user password
-        const result = await db.one(`INSERT INTO users(username, email, firstname, lastname, password, level_id) 
+  try {
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+    user.password = hashedPassword;
+
+    // Insert into the database
+    const result = await db.one(
+      `INSERT INTO users(username, email, firstname, lastname, password, level_id) 
         VALUES($1, $2, $3, $4, $5, $6) 
         RETURNING *;`,
-        [user.username, user.email, user.firstname, user.lastname, hashedPassword, user.level_id]
-        );
-        return { result };
-    } catch (error) {
-        return { error };
-    }
+      [
+        user.username,
+        user.email,
+        user.firstname,
+        user.lastname,
+        user.password,  // Here, user.password is already the hashed version
+        user.level_id,
+      ]
+    );
+    console.log("User data being inserted:", user);
+
+    return { result };
+  } catch (error) {
+    console.error("Error during user creation:", error);
+    return { error: "server error" };
+  }
 };
+
 
 const verifyUser = async (email, password) => {
-    try {
-      const user = await db.oneOrNone(`SELECT password FROM users WHERE email = $1`, [email]);
-      if (!user) return false;
-      const isMatch = await bcrypt.compare(password, user.password);
-      return isMatch ? user : false;
-    } catch (error) {
-      throw error;
+  try {
+    const user = await db.oneOrNone(`SELECT * FROM users WHERE email = $1`, [
+      email,
+    ]);
+    if (!user) {
+      console.log("User not found with email:", email);
+      return false;
     }
+
+   
+
+    // Actual password check
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      console.log("Password does not match for email:", email);
+    }
+    return isMatch ? user : false;
+  } catch (error) {
+    console.error("Error in verifyUser:", error);
+    throw error;
+  }
 };
 
-const deleteUser = async (id) => {
-    try {
-      const result = await db.one(
-        "DELETE FROM users WHERE id=$1 RETURNING *",
-        id
-      );
-      return { result };
-    } catch (error) {
-      return { error };
-    }
-  };
-  
-  const updateUser = async (id, user) => {
-    try {
-      const hashedPassword = await bcrypt.hash(user.password, 10)//if password is updated hash the new one
-      const result = await db.one(
-        `UPDATE users SET username=$1, email=$2, firstname=$3, lastname=$4, password=$5, level_id=$6 WHERE id=$7 RETURNING *`,
-        [
-          user.username,
-          user.email,
-          user.firstname,
-          user.lastname,
-          hashedPassword,
-          user.level_id,
-          id,
-        ]
-      );
-      return { result };
-    } catch (error) {
-      return { error };
-    }
-  };
+const deleteUser = async (user_id) => {
+  try {
+    const result = await db.one(
+      "DELETE FROM users WHERE user_id=$1 RETURNING *",
+      user_id
+    );
+    return { result };
+  } catch (error) {
+    return { error };
+  }
+};
 
-  module.exports = {
-    getAllUsers,
-    getUser,
-    createUser,
-    verifyUser,
-    deleteUser,
-    updateUser,
-  };
+const updateUser = async (user_id, user) => {
+  try {
+    const hashedPassword = await bcrypt.hash(user.password, 10); //if password is updated hash the new one
+    const result = await db.one(
+      `UPDATE users SET username=$1, email=$2, firstname=$3, lastname=$4, password=$5, level_id=$6 WHERE user_id=$7 RETURNING *`,
+      [
+        user.username,
+        user.email,
+        user.firstname,
+        user.lastname,
+        hashedPassword,
+        user.level_id,
+        user_id,
+      ]
+    );
+    return { result };
+  } catch (error) {
+    return { error };
+  }
+};
+
+module.exports = {
+  getAllUsers,
+  getUser,
+  createUser,
+  verifyUser,
+  deleteUser,
+  updateUser,
+};

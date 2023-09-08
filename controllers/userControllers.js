@@ -24,9 +24,9 @@ user.get("/", async (req, res) => {
   }
 });
 
-user.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { error, result } = await getUser(id);
+user.get("/:user_id", async (req, res) => {
+  const { user_id } = req.params;
+  const { error, result } = await getUser(user_id);
   if (error?.code === 0) {
     res.status(404).json({ error: "user not found" });
   } else if (error) {
@@ -37,31 +37,35 @@ user.get("/:id", async (req, res) => {
 });
 //sign up
 user.post("/", validateUser, async (req, res) => {
-  const userPassword = req.body.password;
-  bcrypt.hash(userPassword, saltRounds, async(error, hash));
+  console.log("Received signup request", req.body);
+  if (!req.body.email || !req.body.password) {
+    return res.status(400).json({ error: 'Validation failed' });
+ }
 
-  if (error) {
-    res.status(500).json({ error: "error hashing the password" });
-    return;
-  }
-  req.body.password = hash;
-
-  const { error, result } = await createUser(req.body);
-  if (error) {
+  try {
+   
+    const { error, result } = await createUser(req.body);
+    if (error) {
+      res.status(500).json({ error: "server error" });
+    } else {
+      res.status(201).json(result);
+    }
+  } catch (error) {
+    // Catch general errors
     res.status(500).json({ error: "server error" });
-  } else {
-    res.status(201).json(result);
   }
 });
 
 
+
 user.post("/login", (req, res, next) => {
+  
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return res.status(500).json({ error: "server error" });
     }
     if (!user) {
-      console.log(user);
+    
       return res.status(401).json({ error: "authentication failed" });
     }
     req.logIn(user, (err) => {
@@ -73,9 +77,25 @@ user.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
-user.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { error, result } = await updateUser(id, req.body);
+user.put("/:user_id", async (req, res) => {
+  if (!req.body.email || !req.body.password) {
+    return res.status(400).json({ error: 'Validation failed' });
+ }
+  const { user_id } = req.params;
+
+ 
+  if (req.body.password) {
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+      req.body.password = hashedPassword;
+    } catch (error) {
+     
+      return res.status(500).json({ error: "Error hashing the password" });
+    }
+  }
+
+
+  const { error, result } = await updateUser(user_id, req.body);
   if (error) {
     res.status(500).json({ error: "server error" });
   } else {
@@ -83,14 +103,16 @@ user.put("/:id", async (req, res) => {
   }
 });
 
-user.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { error, result } = await deleteUser(id);
-  if (error) {
-    res.status(404).json("user not found");
-  } else {
-    res.status(201).json(result);
-  }
+
+user.delete("/:user_id", async (req, res) => {
+  const { user_id } = req.params;
+  const { error, result } = await deleteUser(user_id);
+  if (error?.code === 'YOUR_NOT_FOUND_ERROR_CODE') {
+    res.status(404).json({ error: "user not found" });
+ } else if (error) {
+    res.status(500).json({ error: "server error" });
+ }
+ 
 });
 
 module.exports = user;
