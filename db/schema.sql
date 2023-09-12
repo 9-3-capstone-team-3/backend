@@ -24,7 +24,8 @@ CREATE TABLE users(
     lastname VARCHAR(255),
     password VARCHAR(255) NOT NULL,
     level_id INT,
-    last_login TIMESTAMP
+    last_login TIMESTAMP,
+    total_points INT
 );
 
 
@@ -48,7 +49,8 @@ CREATE TABLE quiz_video(
 
 CREATE TABLE prompt_type(
     prompt_type_id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+    points INT 
 );
 CREATE TABLE question(
     question_id SERIAL PRIMARY KEY,
@@ -56,7 +58,6 @@ CREATE TABLE question(
     prompt VARCHAR(255) NOT NULL,
     quiz_id INT REFERENCES quiz(quiz_id),
     prompt_type_id INT REFERENCES prompt_type(prompt_type_id)
-    
 );
 
 CREATE TABLE intro_question(
