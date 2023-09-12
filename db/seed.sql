@@ -6,10 +6,10 @@ VALUES
 ('Level 1'), ('Level 2'), ('Level 3'), ('Level 4'), ('Level 5');
 
 -- Insert users
-INSERT INTO users (username, email, firstname, lastname, password, level_id) VALUES
-('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 1),
-('codefusionuser2', 'user2@gmail.com', 'Jane', 'Smith', 'password456', 1),
-('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 1);
+INSERT INTO users (username, email, firstname, lastname, password, level_id, total_points) VALUES
+('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 1, 50),
+('codefusionuser2', 'user2@gmail.com', 'Jane', 'Smith', 'password456', 1, 60),
+('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 1, 70);
 
 -- Insert quiz (set of questions)
 INSERT INTO quiz(level_id, name) VALUES 
