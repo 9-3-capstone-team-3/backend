@@ -9,7 +9,7 @@ const quizController = require("./controllers/quizControllers.js");
 const answerController = require("./controllers/answerControllers.js");
 const questionController = require("./controllers/questionControllers.js");
 const introquestionController = require("./controllers/introQuestionControllers.js")
-const userProfileController = require("./controllers/userProfileController.js")
+const userProfileController = require("./controllers/userProfileController.js");
 
 
 const { verifyUser } = require("./queries/user.js");
