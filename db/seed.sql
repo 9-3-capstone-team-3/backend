@@ -7,7 +7,9 @@ VALUES
 
 -- Insert users
 INSERT INTO users (username, email, firstname, lastname, password, level_id) VALUES
-('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 1);
+('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 1),
+('codefusionuser2', 'user2@gmail.com', 'Jane', 'Smith', 'password456', 1),
+('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 1);
 
 -- Insert quiz (set of questions)
 INSERT INTO quiz(level_id, name) VALUES 
@@ -25,8 +27,8 @@ INSERT INTO quiz_video (url) VALUES
 ('https://youtu.be/3QHmKcs2MVY');
 
 -- Insert question types
-INSERT INTO prompt_type(name) VALUES
-('Multiple Choice'), ('Single'), ('Boolean');
+INSERT INTO prompt_type(name, points) VALUES
+('Multiple Choice', 5), ('Single', 10), ('Boolean', 15);
 
 -- Insert questions (without answer_id)
 INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
