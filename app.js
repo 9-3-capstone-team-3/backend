@@ -26,7 +26,7 @@ app.use(session({
   cookie: { secure: false}
 }));
 //intialize passport middlewarea
-passport.use(
+passport.use( 
   new LocalStrategy(async function (email, password, done) {
     try {
       const user = await verifyUser(email, password);
