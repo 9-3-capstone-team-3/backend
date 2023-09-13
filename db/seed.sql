@@ -5,6 +5,10 @@ INSERT INTO level (level_name)
 VALUES
 ('Level 1'), ('Level 2'), ('Level 3'), ('Level 4'), ('Level 5');
 
+INSERT INTO status (status_name) 
+VALUES
+('Beginner'), ('Intermediate'), ('Advanced'), ('Expert');
+
 -- Insert users
 INSERT INTO users (username, email, firstname, lastname, password, level_id, total_points) VALUES
 ('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 1, 50),
@@ -12,19 +16,13 @@ INSERT INTO users (username, email, firstname, lastname, password, level_id, tot
 ('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 1, 70);
 
 -- Insert quiz (set of questions)
-INSERT INTO quiz(level_id, name) VALUES 
-(1, 'Initial landing page questions'),
-(2, 'Git Basics'),
-(3, 'Setting up Git'),
-(4, 'Initialize Git'),
-(5, 'Git Commands Branches and Merges');
+INSERT INTO quiz(level_id, name, video_url) VALUES 
+(1, 'Initial landing page questions', 'https://youtu.be/hfsP3lXoSMc'),
+(2, 'Git Basics', 'https://youtu.be/GgUIwRtLvrw'),
+(3, 'Setting up Git', 'https://youtu.be/FCBVWCulNgk'),
+(4, 'Initialize Git', 'https://youtu.be/3QHmKcs2MVY'),
+(5, 'Git Commands Branches and Merges', NULL);
 
--- Insert quiz videos ..Must figure out a way to add quiz_id
-INSERT INTO quiz_video (url) VALUES
-('https://youtu.be/hfsP3lXoSMc'),
-('https://youtu.be/GgUIwRtLvrw'),
-('https://youtu.be/FCBVWCulNgk'),
-('https://youtu.be/3QHmKcs2MVY');
 
 -- Insert question types
 INSERT INTO prompt_type(name, points) VALUES
