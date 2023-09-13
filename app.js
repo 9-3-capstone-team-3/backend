@@ -9,6 +9,8 @@ const quizController = require("./controllers/quizControllers.js");
 const answerController = require("./controllers/answerControllers.js");
 const questionController = require("./controllers/questionControllers.js");
 const introquestionController = require("./controllers/introQuestionControllers.js")
+const userProfileController = require("./controllers/userProfileController.js");
+
 
 const { verifyUser } = require("./queries/user.js");
 
@@ -32,12 +34,14 @@ app.use(session({
   cookie: { secure: false}
 }));
 //intialize passport middlewarea
+
 passport.use(
   new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
   },async function (email, password, done) {
     console.log(email, password);//remove this after debugging
+
     try {
       const user = await verifyUser(email, password);
       console.log(user);//remove this after debugging
@@ -81,7 +85,12 @@ app.get("/", (req, res) => {
 
 });
 
+// Use the userController for user-related routes
 app.use("/users", userController);
+
+// Add the profile endpoint to the userProfileController
+app.use("/users/profile/:user_id", userProfileController); // Note the change in the URL here: `/users/profile/:user_id`
+
 app.use("/quiz", quizController);
 app.use("/answers", answerController);
 app.use("/questions", questionController);

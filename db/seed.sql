@@ -10,8 +10,10 @@ VALUES
 ('Beginner'), ('Intermediate'), ('Advanced'), ('Expert');
 
 -- Insert users
-INSERT INTO users (username, email, firstname, lastname, password, level_id) VALUES
-('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 1);
+INSERT INTO users (username, email, firstname, lastname, password, level_id, total_points) VALUES
+('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 1, 50),
+('codefusionuser2', 'user2@gmail.com', 'Jane', 'Smith', 'password456', 1, 60),
+('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 1, 70);
 
 -- Insert quiz (set of questions)
 INSERT INTO quiz(level_id, name, video_url) VALUES 
@@ -23,8 +25,8 @@ INSERT INTO quiz(level_id, name, video_url) VALUES
 
 
 -- Insert question types
-INSERT INTO prompt_type(name) VALUES
-('Multiple Choice'), ('Single'), ('Boolean');
+INSERT INTO prompt_type(name, points) VALUES
+('Multiple Choice', 5), ('Single', 10), ('Boolean', 15);
 
 -- Insert questions (without answer_id)
 INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
@@ -44,7 +46,7 @@ INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
 --RETURNING question_id;
 
 INSERT INTO intro_question (prompt_type_id, prompt) VALUES 
-(3, 'Software developers work on teams to complete projects'),
+(3, 'Software developers work on completely alone to complete projects'),
 (3, 'Developers should use a version tracker to keep track of code changes, in case something goes wrong');
 
 INSERT INTO answer (answer_text, is_correct, question_id, prompt_type_id) VALUES
