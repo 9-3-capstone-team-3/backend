@@ -25,6 +25,7 @@ CREATE TABLE users(
     password VARCHAR(255) NOT NULL,
     level_id INT,
     last_login TIMESTAMP
+    
 );
 
 
@@ -33,18 +34,20 @@ CREATE TABLE level(
     level_id SERIAL PRIMARY KEY,
     level_name TEXT NOT NULL
 );
+
+create TABLE status(
+    status_name TEXT NOT NULL
+);
+
 CREATE TABLE quiz (
     created_date TIMESTAMP DEFAULT current_timestamp,
     quiz_id SERIAL PRIMARY KEY,
     name TEXT,
-    level_id INT REFERENCES level(level_id)
+    level_id INT REFERENCES level(level_id),
+    video_url VARCHAR(255) -- Adjust the data type and length as needed
 );
 
-CREATE TABLE quiz_video(
-    created_date TIMESTAMP DEFAULT current_timestamp,
-    quiz_video_id SERIAL PRIMARY KEY,
-    url VARCHAR(255)
-);
+
 
 CREATE TABLE prompt_type(
     prompt_type_id SERIAL PRIMARY KEY,
