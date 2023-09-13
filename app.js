@@ -34,12 +34,14 @@ app.use(session({
   cookie: { secure: false}
 }));
 //intialize passport middlewarea
+
 passport.use(
   new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
   },async function (email, password, done) {
     console.log(email, password);//remove this after debugging
+
     try {
       const user = await verifyUser(email, password);
       console.log(user);//remove this after debugging
