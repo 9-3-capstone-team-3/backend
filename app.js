@@ -118,6 +118,9 @@ app.use("/questions", questionController);
 app.use("/levels", questionController);
 app.use("/introquestions", introquestionController);
 
+// Define the route to handle user profile requests
+app.get('/:user_id', getUserProfileById);
+
 app.get("*", (req, res) => {
   console.log("404!");
   res.status(404).json({ error: "Page Not Found" });
