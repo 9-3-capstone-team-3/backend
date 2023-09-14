@@ -11,6 +11,7 @@ INSERT INTO users (username, email, firstname, lastname, password, total_points,
 ('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 70, current_timestamp, 1);
 
 -- Insert quiz (set of questions)
+
 INSERT INTO quiz(status_name, name, video_url) VALUES 
 ('Beginner', 'Initial landing page questions', 'https://www.youtube.com/watch?v=hfsP3lXoSMc'),
 ('Beginner', 'Git Basics', 'https://www.youtube.com/watch?v=GgUIwRtLvrw'),
@@ -19,12 +20,13 @@ INSERT INTO quiz(status_name, name, video_url) VALUES
 ('Intermediate', 'Git Commands Branches and Merges', NULL);
 
 
+
 -- Insert question types
 INSERT INTO prompt_type(name, points) VALUES
 ('Multiple Choice', 5), ('Single', 10), ('Boolean', 15);
 
 -- Insert questions (without answer_id)
-INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
+
 ('What is git?', 2, 1),
 ('Where do we get git from?', 2, 1),
 ('Where do we use git commands?', 2, 1),
@@ -38,6 +40,7 @@ INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
 ('Write the command to merge a branch to the main branch', 5, 2),
 ('Write the short command to create a branch and switch to a branch', 5, 2),
 ('When you git commit, you must git push to send your commits to the remote GitHub', 5, 3);
+
 
 
 INSERT INTO intro_question (prompt_type_id, prompt) VALUES 

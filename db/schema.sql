@@ -7,11 +7,21 @@ CREATE DATABASE codefusion_db;
 -- Connect to the codefusion_db database
 \c codefusion_db;
 
--- Create the status table
+
+DROP TABLE IF EXISTS submission CASCADE;
+DROP TABLE IF EXISTS progress CASCADE;
+DROP TABLE IF EXISTS question CASCADE;
+DROP TABLE IF EXISTS answer CASCADE;
+DROP TABLE IF EXISTS question_type CASCADE;
+DROP TABLE IF EXISTS quiz_video CASCADE;
+DROP TABLE IF EXISTS level CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
 CREATE TABLE status (
     status_id SERIAL PRIMARY KEY,
     status_name TEXT NOT NULL UNIQUE
 );
+
 
 -- Create the prompt_type table
 CREATE TABLE prompt_type (
