@@ -24,10 +24,11 @@ CREATE TABLE users(
     lastname VARCHAR(255),
     password VARCHAR(255) NOT NULL,
     level_id INT,
+    total_points INT,
 
   
 
-    last_login TIMESTAMP,
+    last_login TIMESTAMP
 
 );
 
