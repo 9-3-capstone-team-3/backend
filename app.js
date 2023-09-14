@@ -1,6 +1,7 @@
 // Dependencies
 const express = require("express");
 const cors = require("cors");
+const helmet = require('helmet')
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session")
@@ -23,16 +24,36 @@ const corsOptions = {
   credentials: true,  // This allows the session cookie to be sent back and forth
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:"],
+        connectSrc: ["'self'"],
+        fontSrc: ["'self'"],
+      },
+    },
+  })
+);
+
 
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json()); // parses incoming json request
-app.use(session({
-  secret: 'top_secret_key',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false}
-}));
+app.use(
+  session({
+    secret: 'top_secret_key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: true, // Set the Secure attribute to true for HTTPS
+      SameSite: 'none' // Set SameSite attribute to None for cross-site requests
+    },
+  })
+);
 //intialize passport middlewarea
 
 passport.use(
@@ -94,6 +115,7 @@ app.use("/users/profile/:user_id", userProfileController); // Note the change in
 app.use("/quiz", quizController);
 app.use("/answers", answerController);
 app.use("/questions", questionController);
+app.use("/levels", questionController);
 app.use("/introquestions", introquestionController);
 
 app.get("*", (req, res) => {
