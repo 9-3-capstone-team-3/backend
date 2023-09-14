@@ -1,10 +1,12 @@
--- If database exist delete it
+-- If the database exists, delete it
 DROP DATABASE IF EXISTS codefusion_db;
 
--- Create database
+-- Create the database
 CREATE DATABASE codefusion_db;
 
+-- Connect to the codefusion_db database
 \c codefusion_db;
+
 
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS progress CASCADE;
@@ -15,81 +17,89 @@ DROP TABLE IF EXISTS quiz_video CASCADE;
 DROP TABLE IF EXISTS level CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
-CREATE TABLE users(
+CREATE TABLE status (
+    status_id SERIAL PRIMARY KEY,
+    status_name TEXT NOT NULL UNIQUE
+);
+
+
+-- Create the prompt_type table
+CREATE TABLE prompt_type (
+    prompt_type_id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    points INT
+);
+
+-- Create the question table without foreign keys
+CREATE TABLE question (
+    question_id SERIAL PRIMARY KEY,
     created_date TIMESTAMP DEFAULT current_timestamp,
+    prompt VARCHAR(255) NOT NULL,
+    quiz_id INT,
+    prompt_type_id INT,
+    level_number INT
+);
+
+-- Create the answer table
+CREATE TABLE answer (
+    created_date TIMESTAMP DEFAULT current_timestamp,
+    answer_id SERIAL PRIMARY KEY,
+    answer_text TEXT,
+    is_correct BOOLEAN,
+    question_id INT,
+    prompt_type_id INT
+);
+
+-- Create the quiz table without foreign keys
+CREATE TABLE quiz (
+    created_date TIMESTAMP DEFAULT current_timestamp,
+    quiz_id SERIAL PRIMARY KEY,
+    name TEXT,
+    status_name TEXT REFERENCES status(status_name),
+    video_url VARCHAR(255)
+);
+
+
+
+-- Create the intro_question table
+CREATE TABLE intro_question (
+    id SERIAL PRIMARY KEY,
+    created_date TIMESTAMP DEFAULT current_timestamp,
+    prompt_type_id INT,
+    prompt VARCHAR(255) NOT NULL
+);
+
+-- Create the users table without foreign keys
+CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
+    created_date TIMESTAMP DEFAULT current_timestamp,
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     firstname VARCHAR(255),
     lastname VARCHAR(255),
     password VARCHAR(255) NOT NULL,
-    level_id INT,
     total_points INT,
-
-  
-
-    last_login TIMESTAMP
-
+    last_login TIMESTAMP,
+    level_number INT
 );
 
-
-CREATE TABLE level(
-    created_date TIMESTAMP DEFAULT current_timestamp,
-    level_id SERIAL PRIMARY KEY,
-    level_name TEXT NOT NULL
-);
-
-create TABLE status(
-    status_name TEXT NOT NULL
-);
-
-CREATE TABLE quiz (
-    created_date TIMESTAMP DEFAULT current_timestamp,
-    quiz_id SERIAL PRIMARY KEY,
-    name TEXT,
-    level_id INT REFERENCES level(level_id),
-    video_url VARCHAR(255) -- Adjust the data type and length as needed
-);
-
-
-
-CREATE TABLE prompt_type(
-    prompt_type_id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    points INT 
-);
-CREATE TABLE question(
-    question_id SERIAL PRIMARY KEY,
-    created_date TIMESTAMP DEFAULT current_timestamp,
-    prompt VARCHAR(255) NOT NULL,
-    quiz_id INT REFERENCES quiz(quiz_id),
-    prompt_type_id INT REFERENCES prompt_type(prompt_type_id)
-);
-
-CREATE TABLE intro_question(
-    id SERIAL PRIMARY KEY,
-    created_date TIMESTAMP DEFAULT current_timestamp,
-    prompt_type_id INT REFERENCES prompt_type(prompt_type_id),
-    prompt VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE answer(
-    created_date TIMESTAMP DEFAULT current_timestamp,
-    answer_id SERIAL PRIMARY KEY,
-    answer_text TEXT,
-    is_correct BOOLEAN,
-    question_id INT REFERENCES question(question_id),
-    prompt_type_id INT REFERENCES prompt_type(prompt_type_id)
-);
-
-
-
-
-
-CREATE TABLE submission(
+-- Create the submission table
+CREATE TABLE submission (
     created_date TIMESTAMP DEFAULT current_timestamp,
     submission_id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(user_id),
+    user_id INT,
     user_answer VARCHAR(255),
     is_correct BOOLEAN
 );
+
+-- Add foreign key constraints
+ALTER TABLE question
+    ADD FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id),
+    ADD FOREIGN KEY (prompt_type_id) REFERENCES prompt_type(prompt_type_id);
+
+ALTER TABLE answer
+    ADD FOREIGN KEY (question_id) REFERENCES question(question_id),
+    ADD FOREIGN KEY (prompt_type_id) REFERENCES prompt_type(prompt_type_id);
+
+ALTER TABLE submission
+    ADD FOREIGN KEY (user_id) REFERENCES users(user_id);

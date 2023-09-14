@@ -1,26 +1,24 @@
-\c codefusion_db
---Level 1: Boolean, Level 2: Multiple-Choice, Level 3: Single, Level 4: All types(stretch goal)
--- Insert levels
-INSERT INTO level (level_name) 
-VALUES
-('Level 1'), ('Level 2'), ('Level 3'), ('Level 4'), ('Level 5');
+\c codefusion_db;
 
 INSERT INTO status (status_name) 
 VALUES
 ('Beginner'), ('Intermediate'), ('Advanced'), ('Expert');
 
 -- Insert users
-INSERT INTO users (username, email, firstname, lastname, password, level_id, total_points) VALUES
-('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 1, 50),
-('codefusionuser2', 'user2@gmail.com', 'Jane', 'Smith', 'password456', 1, 60),
-('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 1, 70);
+INSERT INTO users (username, email, firstname, lastname, password, total_points, last_login, level_number) VALUES
+('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 50, current_timestamp, 1),
+('codefusionuser2', 'user2@gmail.com', 'Jane', 'Smith', 'password456', 60, current_timestamp, 1),
+('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 70, current_timestamp, 1);
 
 -- Insert quiz (set of questions)
-INSERT INTO quiz(level_id, name, video_url) VALUES 
-(1, 'Git Basics', 'https://www.youtube.com/embed/hfsP3lXoSMc?si=XezAZW4ajyguURFS'),
-(2, 'Setting up Git', 'https://youtu.be/GgUIwRtLvrw'),
-(3, 'Initialize Git', 'https://youtu.be/FCBVWCulNgk'),
-(4, 'Git Commands Branches and Merges', 'https://youtu.be/3QHmKcs2MVY');
+
+INSERT INTO quiz(status_name, name, video_url) VALUES 
+('Beginner', 'Initial landing page questions', 'https://www.youtube.com/watch?v=hfsP3lXoSMc'),
+('Beginner', 'Git Basics', 'https://www.youtube.com/watch?v=GgUIwRtLvrw'),
+('Beginner', 'Setting up Git', 'https://www.youtube.com/watch?v=FCBVWCulNgk'),
+('Beginner', 'Initialize Git', 'https://www.youtube.com/watch?v=3QHmKcs2MVY'),
+('Intermediate', 'Git Commands Branches and Merges', NULL);
+
 
 
 -- Insert question types
@@ -28,21 +26,22 @@ INSERT INTO prompt_type(name, points) VALUES
 ('Multiple Choice', 5), ('Single', 10), ('Boolean', 15);
 
 -- Insert questions (without answer_id)
-INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
-('What is git?', 1, 1),
-('Where do we get git from?', 1, 1),
-('Where do we use git commands?', 1, 1),
-('Git tracks every version of your code, while gitHub…', 1, 1),
-('Why should we learn how to use git?', 1, 1),
-('Write the git configuration command to set up Git with Github.',2,2),
-('Write the git configuration command that does not require a password.',2,2),
-('We can initialize git on a project that already exists on a local machine',2,3),
-('What is the command to initialize git into an already existing file?',3,2),
-('After you create a repository on gitHub, you should go inside your project terminal and type "git clone http or ssh key"',3,3),
-('Write the command to merge a branch to the main branch', 4, 2),
-('Write the short command to create a branch and switch to a branch',4,2),
-('When you git commit, you must git push to send your commits to the remote GitHub',4,3);
---RETURNING question_id;
+
+('What is git?', 2, 1),
+('Where do we get git from?', 2, 1),
+('Where do we use git commands?', 2, 1),
+('Git tracks every version of your code, while gitHub…', 2, 1),
+('Why should we learn how to use git?', 2, 1),
+('Write the git configuration command to set up Git with Github.', 3, 2),
+('Write the git configuration command that does not require a password.', 3, 2),
+('We can initialize git on a project that already exists on a local machine', 4, 3),
+('What is the command to initialize git into an already existing file?', 4, 2),
+('After you create a repository on gitHub, you should go inside your project terminal and type "git clone http or ssh key"', 4, 3),
+('Write the command to merge a branch to the main branch', 5, 2),
+('Write the short command to create a branch and switch to a branch', 5, 2),
+('When you git commit, you must git push to send your commits to the remote GitHub', 5, 3);
+
+
 
 INSERT INTO intro_question (prompt_type_id, prompt) VALUES 
 (3, 'Software developers work on completely alone to complete projects'),
@@ -78,9 +77,7 @@ INSERT INTO answer (answer_text, is_correct, question_id, prompt_type_id) VALUES
 INSERT INTO submission (user_id, user_answer, is_correct) VALUES
 (1, 'A version control system', true);
 
--- -- Insert progress
--- INSERT INTO progress (user_id, points) VALUES
--- (1, 0);
+
 
 
 
