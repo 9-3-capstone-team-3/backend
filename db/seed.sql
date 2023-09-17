@@ -13,11 +13,11 @@ INSERT INTO users (username, email, firstname, lastname, password, total_points,
 -- Insert quiz (set of questions)
 
 INSERT INTO quiz(status_name, name, video_url) VALUES 
-('Beginner', 'Initial landing page questions', 'https://www.youtube.com/watch?v=hfsP3lXoSMc'),
-('Beginner', 'Git Basics', 'https://www.youtube.com/watch?v=GgUIwRtLvrw'),
-('Beginner', 'Setting up Git', 'https://www.youtube.com/watch?v=FCBVWCulNgk'),
-('Beginner', 'Initialize Git', 'https://www.youtube.com/watch?v=3QHmKcs2MVY'),
-('Intermediate', 'Git Commands Branches and Merges', NULL);
+('Beginner', 'Initial landing page questions', NULL),
+('Beginner', 'Git Basics', 'https://www.youtube.com/watch?v=hfsP3lXoSMc'),
+('Beginner', 'Setting up Git', 'https://www.youtube.com/watch?v=GgUIwRtLvrw'),
+('Beginner', 'Initialize Git', 'https://www.youtube.com/watch?v=FCBVWCulNgk'),
+('Beginner', 'Git Commands Branches and Merges', 'https://www.youtube.com/watch?v=3QHmKcs2MVY');
 
 
 
@@ -26,7 +26,7 @@ INSERT INTO prompt_type(name, points) VALUES
 ('Multiple Choice', 5), ('Single', 10), ('Boolean', 15);
 
 -- Insert questions (without answer_id)
-
+INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
 ('What is git?', 2, 1),
 ('Where do we get git from?', 2, 1),
 ('Where do we use git commands?', 2, 1),
