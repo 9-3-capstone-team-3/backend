@@ -110,14 +110,13 @@ app.get("/", (req, res) => {
 app.use("/users", userController);
 
 // Add the profile endpoint to the userProfileController
-app.use("/users/:user_id", userProfileController); // Note the change in the URL here: `/users/profile/:user_id`
+app.use("/users/profile/:user_id", userProfileController); // Note the change in the URL here: `/users/profile/:user_id`
 
 app.use("/quiz", quizController);
 app.use("/answers", answerController);
 app.use("/questions", questionController);
-app.use("/levels", questionController);
+app.use("/levels", quizController);
 app.use("/introquestions", introquestionController);
-
 
 app.get("*", (req, res) => {
   console.log("404!");

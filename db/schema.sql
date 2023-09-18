@@ -56,7 +56,7 @@ CREATE TABLE quiz (
     quiz_id SERIAL PRIMARY KEY,
     name TEXT,
     status_name TEXT REFERENCES status(status_name),
-    video_url VARCHAR(255)
+    video_id VARCHAR(255)
 );
 
 

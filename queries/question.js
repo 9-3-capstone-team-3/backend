@@ -1,12 +1,8 @@
 const db = require("../db/dbConfig");
 
-const getAllQuestions = async () => {
+const getAllQuestions = async (quiz_id) => {
     try {
-        const result = await db.any(`
-            SELECT *,
-                ROW_NUMBER() OVER (ORDER BY question_id) AS level_number
-            FROM question
-        `);
+        const result = await db.any(`SELECT * FROM question WHERE quiz_id=$1`, [quiz_id]);
         return { result };
     } catch (error) {
         return { error };
@@ -25,7 +21,16 @@ const getAllQuestions = async () => {
  }
 };
 
+const getAnswersByQuestionId = async (questionId) => {
+    try {
+        const result = await db.any(`SELECT * FROM answer WHERE question_id=$1`, [questionId]);
+        return { result };
+    } catch (error) {
+        return { error };
+    }
+};
 module.exports = {
     getAllQuestions,
     getQuestion,
+    getAnswersByQuestionId,
 };

@@ -1,41 +1,25 @@
-const db = require("../db/dbConfig");
-const updateLevels = async () => {
-    let transaction; // Declare a transaction variable
+const db = require('../db/dbConfig');
 
+const levels = async () => {
     try {
-        // Start a transaction
-        transaction = await db.tx();
-        console.log('Transaction started'); // Add this log
+        //fetch questions ordered by their quiz id
+        const quizzes = await db.any(`SELECT DISTINCT quiz_id FROM question ORDER BY quiz_id`);
+        console.log('Fetched quizzes', quizzes);
 
-        // Fetch questions ordered by their IDs
-        const questions = await transaction.any(`SELECT question_id FROM question ORDER BY question_id`);
-        console.log('Fetched questions:', questions); // Add this log
-
-        // Update level_number based on the order of questions
-        for (let index = 0; index < questions.length; index++) {
-            const questionId = questions[index].question_id;
+        for (let index = 0; index < quizzes.length; index++) {
+            const quizId = quizzes[index].quiz_id;
             const levelNumber = index + 1;
 
-            await transaction.none(`UPDATE question SET level_number = $1 WHERE question_id = $2`, [
+            await db.none(`UPDATE question SET level_number = $1 WHERE quiz_id = $2`, [
                 levelNumber,
-                questionId,
+                quizId,
             ]);
-            console.log(`Updated question_id ${questionId} with level_number ${levelNumber}`); // Add this log
+            console.log(`Updated quiz_id ${quizId} with level_number ${levelNumber}`);
         }
-
-        // Commit the transaction
-        await transaction.commit();
-        console.log('Transaction committed successfully'); // Add this log
-
-        console.log('Level numbers updated successfully.');
+        console.log('Level numbers updateed successfully')
     } catch (error) {
-        // Rollback the transaction if an error occurs
-        if (transaction) {
-            await transaction.rollback();
-            console.log('Transaction rolled back due to error'); // Add this log
-        }
-
-        console.error('Error updating level numbers', error);
+        console.error('Error updating level numbers', error)
     }
 };
-module.exports = updateLevels;
+
+module.exports = levels;
