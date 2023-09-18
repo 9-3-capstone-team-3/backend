@@ -12,12 +12,22 @@ INSERT INTO users (username, email, firstname, lastname, password, total_points,
 
 -- Insert quiz (set of questions)
 
-INSERT INTO quiz(status_name, name, video_url) VALUES 
+INSERT INTO quiz(status_name, name, video_id) VALUES 
 ('Beginner', 'Initial landing page questions', NULL),
-('Beginner', 'Git Basics', 'https://www.youtube.com/watch?v=hfsP3lXoSMc'),
-('Beginner', 'Setting up Git', 'https://www.youtube.com/watch?v=GgUIwRtLvrw'),
-('Beginner', 'Initialize Git', 'https://www.youtube.com/watch?v=FCBVWCulNgk'),
-('Beginner', 'Git Commands Branches and Merges', 'https://www.youtube.com/watch?v=3QHmKcs2MVY');
+('Beginner', 'Git Basics', 'hfsP3lXoSMc'),
+('Beginner', 'Setting up Git', 'GgUIwRtLvrw'),
+('Beginner', 'Initialize Git', 'FCBVWCulNgk'),
+('Beginner', 'Git Commands Branches and Merges', '3QHmKcs2MVY'),
+('Intermediate', 'Initial landing page questions', NULL),
+('Intermediate', 'Git Basics', 'hfsP3lXoSMc'),
+('Intermediate', 'Setting up Git', 'GgUIwRtLvrw'),
+('Intermediate', 'Initialize Git', 'FCBVWCulNgk'),
+('Advanced', 'Initial landing page questions', NULL),
+('Advanced', 'Initial landing page questions', NULL),
+('Advanced', 'Initial landing page questions', NULL),
+('Advanced', 'Initial landing page questions', NULL);
+
+
 
 
 

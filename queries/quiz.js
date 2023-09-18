@@ -1,6 +1,8 @@
 // queries/quiz.js
 const db = require("../db/dbConfig");
 
+
+
 const getAllQuiz = async () => {
   try {
     const result = await db.any("SELECT * FROM quiz");
@@ -9,6 +11,8 @@ const getAllQuiz = async () => {
     return { error };
   }
 };
+
+
 
 const getQuiz = async (quiz_id) => {
   try {
@@ -21,7 +25,19 @@ const getQuiz = async (quiz_id) => {
   }
 };
 
+const getQuizQuestions = async (quiz_id) => {
+  try {
+    const result = await db.any("SELECT * FROM question WHERE quiz_id = $1", [
+      quiz_id,
+    ]);
+    return { result };
+  } catch (error) {
+    return { error };
+  }
+};
+
 module.exports = {
   getAllQuiz,
   getQuiz,
+  getQuizQuestions,
 };
