@@ -3,9 +3,10 @@ const userProfile = express.Router();
 const { getUserProfileById } = require("../queries/userProfile");
 
 userProfile.get("/:user_id", async (req, res) => {
+    
     try {
         const { user_id } = req.params;
-
+        console.log(user_id)
         // Call the query function to fetch the user's profile
         const { error, result } = await getUserProfileById(user_id);
 
