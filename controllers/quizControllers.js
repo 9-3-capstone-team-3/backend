@@ -53,14 +53,24 @@ quiz.get("/:quiz_id", async (req, res) => {
 });
 
 quiz.get("/:quiz_id/questions", async (req, res) => {
+  console.log(`Trying to get questions for quiz ID: ${req.params.quiz_id}`);
+
   const { quiz_id } = req.params;
   try {
     const { error, result } = await getQuizQuestions(quiz_id);
+    console.log('Questions fetched:', result);
+
     if (error) {
+      console.log("Error when fetching questions:", error);
+
       res.status(500).json({ error: "Server error" });
     } else if (!result || result.length === 0) {
+      console.log("No questions found for the quiz.");
+
       res.status(404).json({ error: "Questions not found for the provided quiz ID" });
     } else {
+      console.log("Sending questions to frontend:", result);
+
       res.status(200).json(result);
     }
   } catch (error) {
