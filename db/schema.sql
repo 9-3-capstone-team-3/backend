@@ -92,6 +92,14 @@ CREATE TABLE submission (
     is_correct BOOLEAN
 );
 
+CREATE TABLE user_completed_quizzes (
+  user_id INTEGER,
+  quiz_id INTEGER,
+  completed_at TIMESTAMP,
+  PRIMARY KEY(user_id, quiz_id)
+);
+
+
 -- Add foreign key constraints
 ALTER TABLE question
     ADD FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id),
@@ -103,3 +111,8 @@ ALTER TABLE answer
 
 ALTER TABLE submission
     ADD FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+ALTER TABLE user_completed_quizzes
+    ADD FOREIGN KEY (user_id) REFERENCES users(user_id),
+    ADD FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id);
+

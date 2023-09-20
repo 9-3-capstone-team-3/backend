@@ -31,7 +31,7 @@ const createUser = async (user) => {
 
     // Insert into the database
     const result = await db.one(
-      `INSERT INTO users(username, email, firstname, lastname, password, level_id) 
+      `INSERT INTO users(username, email, firstname, lastname, password, level_number) 
         VALUES($1, $2, $3, $4, $5, $6) 
         RETURNING *;`,
       [
@@ -40,7 +40,7 @@ const createUser = async (user) => {
         user.firstname,
         user.lastname,
         user.password,  // Here, user.password is already the hashed version
-        user.level_id,
+        user.level_number,
       ]
     );
     console.log("User data being inserted:", user);
@@ -93,20 +93,32 @@ const updateUser = async (user_id, user) => {
   try {
     const hashedPassword = await bcrypt.hash(user.password, 10); //if password is updated hash the new one
     const result = await db.one(
-      `UPDATE users SET username=$1, email=$2, firstname=$3, lastname=$4, password=$5, level_id=$6 WHERE user_id=$7 RETURNING *`,
+      `UPDATE users SET username=$1, email=$2, firstname=$3, lastname=$4, password=$5, level_number=$6 WHERE user_id=$7 RETURNING *`,
       [
         user.username,
         user.email,
         user.firstname,
         user.lastname,
         hashedPassword,
-        user.level_id,
+        user.level_number,
         user_id,
       ]
     );
     return { result };
   } catch (error) {
     return { error };
+  }
+};
+
+const getCompletedQuizzesForUser = async (user_id) => {
+  try {
+    const completedQuizzes = await db.any(
+      `SELECT quiz_id FROM user_completed_quizzes WHERE user_id=$1`,
+      [user_id]
+    );
+    return completedQuizzes.map((quiz) => quiz.quiz_id);
+  } catch (error) {
+    throw error;
   }
 };
 
@@ -117,4 +129,5 @@ module.exports = {
   verifyUser,
   deleteUser,
   updateUser,
+  getCompletedQuizzesForUser
 };
