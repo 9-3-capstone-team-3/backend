@@ -75,12 +75,12 @@ INSERT INTO answer (answer_text, is_correct, question_id, prompt_type_id) VALUES
 ('git can crash our computers and cause major problems', false, 5, 1),
 ('git config --global user.name (your name here)',true, 6,2),
 ('git config --global core.editor (code --wait)',true,7,2),
-('true',true, 8, 3),
+('True',true, 8, 3),
 ('git init',true, 9, 2),
-('true',true, 10, 3),
+('True',true, 10, 3),
 ('git merge branch_name',true, 11, 2),
 ('git checkout -b branch_name',true, 12, 2),
-('true',true, 13, 3);
+('True',true, 13, 3);
 
 
 -- Insert submission (without question_id)
