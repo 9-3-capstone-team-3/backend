@@ -71,7 +71,7 @@ CREATE TABLE users (
     firstname VARCHAR(255),
     lastname VARCHAR(255),
     password VARCHAR(255) NOT NULL,
-    total_points INT,
+    total_points INT DEFAULT 0,
     last_login TIMESTAMP,
     level_number INT
 );
