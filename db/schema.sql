@@ -1,13 +1,3 @@
--- If the database exists, delete it
-DROP DATABASE IF EXISTS codefusion_db;
-
--- Create the database
-CREATE DATABASE codefusion_db;
-
--- Connect to the codefusion_db database
-\c codefusion_db;
-
-
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS progress CASCADE;
 DROP TABLE IF EXISTS question CASCADE;

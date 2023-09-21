@@ -1,5 +1,3 @@
-\c codefusion_db;
-
 INSERT INTO status (status_name) 
 VALUES
 ('Beginner'), ('Intermediate'), ('Advanced'), ('Expert');
