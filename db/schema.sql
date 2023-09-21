@@ -61,13 +61,6 @@ CREATE TABLE quiz (
 
 
 
--- Create the intro_question table
-CREATE TABLE intro_question (
-    id SERIAL PRIMARY KEY,
-    created_date TIMESTAMP DEFAULT current_timestamp,
-    prompt_type_id INT,
-    prompt VARCHAR(255) NOT NULL
-);
 
 -- Create the users table without foreign keys
 CREATE TABLE users (
@@ -78,7 +71,7 @@ CREATE TABLE users (
     firstname VARCHAR(255),
     lastname VARCHAR(255),
     password VARCHAR(255) NOT NULL,
-    total_points INT,
+    total_points INT DEFAULT 0,
     last_login TIMESTAMP,
     level_number INT
 );
