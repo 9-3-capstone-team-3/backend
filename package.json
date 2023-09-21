@@ -17,5 +17,8 @@
     "dev": "nodemon server.js",
     "db:init": "psql -f db/schema.sql",
     "db:seed": "psql -f db/seed.sql"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
