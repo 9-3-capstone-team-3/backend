@@ -65,7 +65,7 @@ INSERT INTO answer (answer_text, is_correct, question_id, prompt_type_id) VALUES
 ('A version control system', true, 3, 1),
 ('A garbage can', false, 3, 1),
 ('A remote way to store code', false, 3, 1),
-('Download git from git.scm.com', true, 4, 1),
+('Download git from GitHub.com', true, 4, 1),
 ('It is already built into our computers', false, 4, 1),
 ('Walmart', false, 4, 1),
 ('On the terminal', true, 5, 1),
