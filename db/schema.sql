@@ -62,8 +62,7 @@ CREATE TABLE users (
     lastname VARCHAR(255),
     password VARCHAR(255) NOT NULL,
     total_points INT DEFAULT 0,
-    last_login TIMESTAMP,
-    level_number INT
+    last_login TIMESTAMP
 );
 
 -- Create the submission table

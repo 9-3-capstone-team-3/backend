@@ -3,10 +3,10 @@ VALUES
 ('Beginner'), ('Intermediate'), ('Advanced'), ('Expert');
 
 -- Insert users
-INSERT INTO users (username, email, firstname, lastname, password, total_points, last_login, level_number) VALUES
-('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 50, current_timestamp, 1),
-('codefusionuser2', 'user2@gmail.com', 'Jane', 'Smith', 'password456', 60, current_timestamp, 1),
-('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 70, current_timestamp, 1);
+INSERT INTO users (username, email, firstname, lastname, password, total_points, last_login) VALUES
+('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 50, current_timestamp),
+('codefusionuser2', 'user2@gmail.com', 'Jane', 'Smith', 'password456', 60, current_timestamp),
+('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 70, current_timestamp);
 
 -- Insert quiz (set of questions)
 
