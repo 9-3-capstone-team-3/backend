@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Define your database connection URL
-const connectionString = 'postgres://xcgqyerb:NLp81uaUIuUO4kVns1q6abcKJre-yYsn@peanut.db.elephantsql.com/xcgqyerb';
+const connectionString = 'postgres://sghjqrly:TLJ_uwYVkHcc29xgKnX6_OrlvHgYU64_@peanut.db.elephantsql.com/sghjqrly';
 
 // Create a new PostgreSQL client
 const client = new Client({ connectionString });
