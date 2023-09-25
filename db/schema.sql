@@ -109,3 +109,4 @@ ALTER TABLE user_completed_quizzes
     ADD FOREIGN KEY (user_id) REFERENCES users(user_id),
     ADD FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id);
 
+ALTER TABLE user_completed_quizzes ADD COLUMN points_scored INT;

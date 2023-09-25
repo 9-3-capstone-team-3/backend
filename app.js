@@ -11,7 +11,7 @@ const answerController = require("./controllers/answerControllers.js");
 const questionController = require("./controllers/questionControllers.js");
 const introquestionController = require("./controllers/introQuestionControllers.js")
 const userProfileController = require("./controllers/userProfileController.js");
-
+const submissionController = require("./controllers/submissionControllers.js")
 
 const { verifyUser } = require("./queries/user.js");
 
@@ -112,6 +112,7 @@ app.use("/users/profile", userProfileController);
 app.use("/users", userController);
 
 
+app.use("/submission", submissionController)
 
 app.use("/quiz", quizController);
 app.use("/answers", answerController);
