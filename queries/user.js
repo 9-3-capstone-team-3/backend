@@ -39,7 +39,7 @@ const createUser = async (user) => {
         user.email,
         user.firstname,
         user.lastname,
-        user.password,  // Here, user.password is already the hashed version
+        user.password  // Here, user.password is already the hashed version
         
       ]
     );
@@ -93,7 +93,7 @@ const updateUser = async (user_id, user) => {
   try {
     const hashedPassword = await bcrypt.hash(user.password, 10); //if password is updated hash the new one
     const result = await db.one(
-      `UPDATE users SET username=$1, email=$2, firstname=$3, lastname=$4, password=$5, WHERE user_id=$6 RETURNING *`,
+      `UPDATE users SET username=$1, email=$2, firstname=$3, lastname=$4, password=$5 WHERE user_id=$6 RETURNING *`,
       [
         user.username,
         user.email,

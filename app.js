@@ -109,6 +109,9 @@ app.get("/", (req, res) => {
 // Add the profile endpoint to the userProfileController
 app.use("/users/profile", userProfileController); // Note the change in the URL here: `/users/profile/:user_id`
 
+// Add the profile endpoint to the userProfileController
+app.use("/users/profile", userProfileController); // Note the change in the URL here: `/users/profile/:user_id`
+
 // Use the userController for user-related routes
 app.use("/users", userController);
 
