@@ -31,16 +31,16 @@ const createUser = async (user) => {
 
     // Insert into the database
     const result = await db.one(
-      `INSERT INTO users(username, email, firstname, lastname, password, level_number) 
-        VALUES($1, $2, $3, $4, $5, $6) 
+      `INSERT INTO users(username, email, firstname, lastname, password) 
+        VALUES($1, $2, $3, $4, $5) 
         RETURNING *;`,
       [
         user.username,
         user.email,
         user.firstname,
         user.lastname,
-        user.password,  // Here, user.password is already the hashed version
-        user.level_number,
+        user.password  // Here, user.password is already the hashed version
+        
       ]
     );
     console.log("User data being inserted:", user);
@@ -93,14 +93,14 @@ const updateUser = async (user_id, user) => {
   try {
     const hashedPassword = await bcrypt.hash(user.password, 10); //if password is updated hash the new one
     const result = await db.one(
-      `UPDATE users SET username=$1, email=$2, firstname=$3, lastname=$4, password=$5, level_number=$6 WHERE user_id=$7 RETURNING *`,
+      `UPDATE users SET username=$1, email=$2, firstname=$3, lastname=$4, password=$5 WHERE user_id=$6 RETURNING *`,
       [
         user.username,
         user.email,
         user.firstname,
         user.lastname,
         hashedPassword,
-        user.level_number,
+        
         user_id,
       ]
     );
