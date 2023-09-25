@@ -100,6 +100,7 @@ const updateUser = async (user_id, user) => {
         user.firstname,
         user.lastname,
         hashedPassword,
+        
         user_id,
       ]
     );

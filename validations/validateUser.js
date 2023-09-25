@@ -7,7 +7,7 @@ const userSchema = Joi.object({
   email: Joi.string().email().required(),
   firstname: Joi.string().required(),
   lastname: Joi.string().required(),
-  password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).required()
+  password: Joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).required(),
 });
 
 module.exports = createValidator(userSchema);
