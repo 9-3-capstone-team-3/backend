@@ -19,7 +19,7 @@ const { verifyUser } = require("./queries/user.js");
 // Configuration
 const app = express();
 const corsOptions = {
-  origin: 'http://localhost:3000',  // Replace this with your frontend's address
+  origin: "*",  // Replace this with your frontend's address
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,  // This allows the session cookie to be sent back and forth
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -106,11 +106,12 @@ app.get("/", (req, res) => {
 
 });
 
+// Add the profile endpoint to the userProfileController
+app.use("/users/profile", userProfileController); // Note the change in the URL here: `/users/profile/:user_id`
+
 // Use the userController for user-related routes
 app.use("/users", userController);
 
-// Add the profile endpoint to the userProfileController
-app.use("/users/profile/:user_id", userProfileController); // Note the change in the URL here: `/users/profile/:user_id`
 
 app.use("/quiz", quizController);
 app.use("/answers", answerController);
