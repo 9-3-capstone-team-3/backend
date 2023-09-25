@@ -1,13 +1,3 @@
--- If the database exists, delete it
-DROP DATABASE IF EXISTS codefusion_db;
-
--- Create the database
-CREATE DATABASE codefusion_db;
-
--- Connect to the codefusion_db database
-\c codefusion_db;
-
-
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS progress CASCADE;
 DROP TABLE IF EXISTS question CASCADE;
@@ -59,6 +49,7 @@ CREATE TABLE quiz (
     video_id VARCHAR(255)
 );
 
+
 -- Create the users table without foreign keys
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
@@ -68,9 +59,8 @@ CREATE TABLE users (
     firstname VARCHAR(255),
     lastname VARCHAR(255),
     password VARCHAR(255) NOT NULL,
-    total_points INT,
-    last_login TIMESTAMP,
-    level_number INT
+    total_points INT DEFAULT 0,
+    last_login TIMESTAMP
 );
 
 -- Create the submission table
@@ -81,6 +71,14 @@ CREATE TABLE submission (
     user_answer VARCHAR(255),
     is_correct BOOLEAN
 );
+
+CREATE TABLE user_completed_quizzes (
+  user_id INTEGER,
+  quiz_id INTEGER,
+  completed_at TIMESTAMP,
+  PRIMARY KEY(user_id, quiz_id)
+);
+
 
 -- Add foreign key constraints
 ALTER TABLE question
@@ -93,3 +91,8 @@ ALTER TABLE answer
 
 ALTER TABLE submission
     ADD FOREIGN KEY (user_id) REFERENCES users(user_id);
+
+ALTER TABLE user_completed_quizzes
+    ADD FOREIGN KEY (user_id) REFERENCES users(user_id),
+    ADD FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id);
+

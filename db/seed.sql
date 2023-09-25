@@ -1,14 +1,12 @@
-\c codefusion_db;
-
 INSERT INTO status (status_name) 
 VALUES
 ('Beginner'), ('Intermediate'), ('Advanced'), ('Expert');
 
 -- Insert users
-INSERT INTO users (username, email, firstname, lastname, password, total_points, last_login, level_number) VALUES
-('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 50, current_timestamp, 1),
-('codefusionuser2', 'user2@gmail.com', 'Jane', 'Smith', 'password456', 60, current_timestamp, 1),
-('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 70, current_timestamp, 1);
+INSERT INTO users (username, email, firstname, lastname, password, total_points, last_login) VALUES
+('codefusionuser1', 'user1@gmail.com', 'John', 'Smith', 'password123', 50, current_timestamp),
+('codefusionuser2', 'user2@gmail.com', 'Jane', 'Smith', 'password456', 60, current_timestamp),
+('codefusionuser3', 'user3@gmail.com', 'Jimmy', 'Smith', 'password789', 70, current_timestamp);
 
 -- Insert quiz (set of questions)
 
@@ -42,30 +40,35 @@ INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
 ('When you git commit, you must git push to send your commits to the remote GitHub', 4, 3);
 
 
+
 INSERT INTO answer (answer_text, is_correct, question_id, prompt_type_id) VALUES
-('A version control system', true, 1, 1),
-('A garbage can', false, 1, 1),
-('A remote way to store code', false, 1, 1),
-('Download git from git.scm.com', true, 2, 1),
-('It is already built into our computers', false, 2, 1),
-('Walmart', false, 2, 1),
-('On the terminal', true, 3, 1),
-('In space', false, 3, 1),
-('At a command center', false, 3, 1),
-('only stores code', true, 4, 1),
-('writes your code for you', false, 4, 1),
-('debugs your code', false, 4, 1),
-('Git is the most popular choice for version control for developers today', true, 5, 1),
-('git cures boredom', false, 5, 1),
-('git can crash our computers and cause major problems', false, 5, 1),
-('git config --global user.name (your name here)',true, 6,2),
-('git config --global core.editor (code --wait)',true,7,2),
-('true',true, 8, 3),
-('git init',true, 9, 2),
-('true',true, 10, 3),
-('git merge branch_name',true, 11, 2),
-('git checkout -b branch_name',true, 12, 2),
-('true',true, 13, 3);
+('True', false, 1, 1),
+('False', true, 1, 1),
+('True', true, 2, 1),
+('False', false, 2, 1),
+('A version control system', true, 3, 1),
+('A garbage can', false, 3, 1),
+('A remote way to store code', false, 3, 1),
+('Download git from GitHub.com', true, 4, 1),
+('It is already built into our computers', false, 4, 1),
+('Walmart', false, 4, 1),
+('On the terminal', true, 5, 1),
+('In space', false, 5, 1),
+('At a command center', false, 5, 1),
+('only stores code', true, 6, 1),
+('writes your code for you', false, 6, 1),
+('debugs your code', false, 6, 1),
+('Git is the most popular choice for version control for developers today', true, 7, 1),
+('Git cures boredom', false, 7, 1),
+('Git can crash our computers and cause major problems', false, 7, 1),
+('Git config --global user.name (your name here)',true, 8,2),
+('Git config --global core.editor (code --wait)',true,9,2),
+('True',true, 10, 3),
+('Git init',true, 11, 2),
+('True',true, 12, 3),
+('Git merge branch_name',true, 13, 2),
+('Git checkout -b branch_name',true, 14, 2),
+('True',true, 15, 3);
 
 
 -- Insert submission (without question_id)

@@ -10,6 +10,7 @@ const saltRounds = 10;
 const {
   getAllUsers,
   getUser,
+  getCompletedQuizzesForUser,
   createUser,
   deleteUser,
   updateUser,
@@ -33,6 +34,18 @@ user.get("/:user_id", async (req, res) => {
     res.status(500).json({ error: "server error" });
   } else {
     res.status(200).json(result);
+  }
+});
+
+user.get("/completed-quizzes/:user_id", async (req, res) => {
+  const { user_id } = req.params;
+  try {
+    // Query your database to fetch the list of completed quiz IDs for the user
+    const completedQuizzes = await getCompletedQuizzesForUser(user_id);
+    res.status(200).json(completedQuizzes);
+  } catch (error) {
+    console.error("Error fetching completed quizzes:", error);
+    res.status(500).json({ error: "Server error" });
   }
 });
 //sign up
