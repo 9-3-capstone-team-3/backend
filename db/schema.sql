@@ -50,8 +50,6 @@ CREATE TABLE quiz (
 );
 
 
-
-
 -- Create the users table without foreign keys
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
