@@ -9,6 +9,7 @@
     "joi": "^17.10.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "pg": "^8.11.3",
     "pg-promise": "^11.5.3"
   },
   "scripts": {
@@ -16,5 +17,8 @@
     "dev": "nodemon server.js",
     "db:init": "psql -f db/schema.sql",
     "db:seed": "psql -f db/seed.sql"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }

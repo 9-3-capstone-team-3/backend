@@ -1,13 +1,3 @@
--- If the database exists, delete it
-DROP DATABASE IF EXISTS codefusion_db;
-
--- Create the database
-CREATE DATABASE codefusion_db;
-
--- Connect to the codefusion_db database
-\c codefusion_db;
-
-
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS progress CASCADE;
 DROP TABLE IF EXISTS question CASCADE;
@@ -60,8 +50,6 @@ CREATE TABLE quiz (
 );
 
 
-
-
 -- Create the users table without foreign keys
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
@@ -72,8 +60,7 @@ CREATE TABLE users (
     lastname VARCHAR(255),
     password VARCHAR(255) NOT NULL,
     total_points INT DEFAULT 0,
-    last_login TIMESTAMP,
-    level_number INT
+    last_login TIMESTAMP
 );
 
 -- Create the submission table
