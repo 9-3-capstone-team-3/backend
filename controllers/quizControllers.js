@@ -47,7 +47,7 @@ quiz.get("/:quiz_id", async (req, res) => {
       res.status(200).json(result);
     }
   } catch (error) {
-    console.error(error);
+    console.error("Error in /:quiz_id route:", error);
     res.status(500).json({ error: "Server error" });
   }
 });

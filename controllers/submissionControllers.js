@@ -12,33 +12,42 @@ const {
 } = require("../queries/submission")
 
 submission.get("/", async (req, res) => {
-    const {error, result} = await getAllSubmisssions();
-    if (error) {
-        res.send(500).json({ error: "server error"});
-    } else {
-        res.send(200).json(result)
-    }
+  const {error, result} = await getAllSubmisssions();
+  if (error) {
+      res.status(500).json({ error: "server error"});
+  } else {
+      res.status(200).json(result);
+  }
 });
 
-submission.get("/:id", async (req, res) => {
+
+submission.get("/:submission_id", async (req, res) => {
+  const id = req.params.submission_id
     const { error, result} = await getSubmission(id);
     if (error?.code === 0 ){
-        res.send(404).json({error: "submission not found"});
+        res.status(404).json({error: "submission not found"});
     } else if (error){
-        res.send(500).json({ error: "server error"});
+        res.status(500).json({ error: "server error"});
     } else {
-        res.send(200).json(result);
+        res.status(200).json(result);
     }
 });
 
-submission.post("/", validateSubmission, async (req, res) => {
-    const { error, result} = await createSubmission(req.body);
-    if (error) {
-        res.send(500).json({ error: "server error"});
-    } else {
-        res.status(201).json(result);
-    }
+submission.post("/", async (req, res) => {
+  console.log("POST /submission route accessed");
+  try {
+      const { error, result} = await createSubmission(req.body);
+      if (error) {
+          res.status(500).json({ error: "server error"});
+      } else {
+          res.status(201).json(result);
+      }
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "An unexpected error occurred." });
+  }
 });
+
 
 submission.put("/:id", async (req, res) => {
     const { id } = req.params;

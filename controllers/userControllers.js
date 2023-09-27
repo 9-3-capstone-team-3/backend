@@ -14,6 +14,7 @@ const {
   createUser,
   deleteUser,
   updateUser,
+  updateUserPoints
 } = require("../queries/user");
 
 user.get("/", async (req, res) => {
@@ -46,6 +47,19 @@ user.get("/completed-quizzes/:user_id", async (req, res) => {
   } catch (error) {
     console.error("Error fetching completed quizzes:", error);
     res.status(500).json({ error: "Server error" });
+  }
+});
+user.post("/:user_id/total_points", async (req, res) => {
+  
+  const { user_id } = req.params;
+  const {total_points } = req.body
+  
+  console.log("Updating user points for:", user_id);
+  const { error, result} = await updateUserPoints(user_id, total_points);
+  if (error) {
+    res.status(500).json({error: "server error"});
+  } else {
+    res.status(200).json(result);
   }
 });
 //sign up
