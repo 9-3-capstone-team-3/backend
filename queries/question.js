@@ -12,7 +12,7 @@ const getAllQuestions = async (quiz_id) => {
   
   
   
- const getQuestion = async () => {
+ const getQuestion = async (id) => {
     try {
         const result = await db.any(`SELECT * FROM question WHERE id=${id}`);
         return { result };
@@ -21,9 +21,9 @@ const getAllQuestions = async (quiz_id) => {
  }
 };
 
-const getAnswersByQuestionId = async (questionId) => {
+const getAnswersByQuestionId = async (id) => {
     try {
-        const result = await db.any(`SELECT * FROM answer WHERE question_id=$1`, [questionId]);
+        const result = await db.any(`SELECT * FROM answer WHERE question_id=$1`, [id]);
         return { result };
     } catch (error) {
         return { error };

@@ -11,6 +11,7 @@ const answerController = require("./controllers/answerControllers.js");
 const questionController = require("./controllers/questionControllers.js");
 const introquestionController = require("./controllers/introQuestionControllers.js")
 const userProfileController = require("./controllers/userProfileController.js");
+const submissionController = require("./controllers/submissionControllers")
 
 
 const { verifyUser } = require("./queries/user.js");
@@ -19,7 +20,7 @@ const { verifyUser } = require("./queries/user.js");
 // Configuration
 const app = express();
 const corsOptions = {
-  origin: "*",  // Replace this with your frontend's address
+  origin: ['http://localhost:3000', 'https://tubular-haupia-b21862.netlify.app'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,  // This allows the session cookie to be sent back and forth
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -115,7 +116,7 @@ app.use("/users/profile", userProfileController); // Note the change in the URL 
 // Use the userController for user-related routes
 app.use("/users", userController);
 
-
+app.use("/submission", submissionController)
 app.use("/quiz", quizController);
 app.use("/answers", answerController);
 app.use("/questions", questionController);

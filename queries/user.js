@@ -121,6 +121,17 @@ const getCompletedQuizzesForUser = async (user_id) => {
     throw error;
   }
 };
+const updateUserPoints = async (user_id, pointsToAdd) => {
+  try {
+    const result = await db.one(
+      `UPDATE users SET total_points = total_points + $1 WHERE user_id = $2 RETURNING total_points`,
+      [pointsToAdd, user_id]
+    )
+    return { result }
+  } catch (error) {
+    return { error }
+  }
+}
 
 module.exports = {
   getAllUsers,
@@ -129,5 +140,6 @@ module.exports = {
   verifyUser,
   deleteUser,
   updateUser,
-  getCompletedQuizzesForUser
+  getCompletedQuizzesForUser,
+  updateUserPoints
 };
