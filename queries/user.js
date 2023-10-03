@@ -141,6 +141,18 @@ const updateUserPoints = async (user_id, pointsToAdd) => {
   }
 }
 
+const updateUserLogin = async (user_id, timestamp) => {
+  try {
+    const result = await db.one(
+      `UPDATE users SET last_login = $1 WHERE user_id = $2 RETURNING last_login`,
+      [timestamp, user_id]
+    )
+    return { result }
+  } catch (error) {
+    return { error }
+  }
+}
+
 module.exports = {
   getAllUsers,
   getUserByEmail,
@@ -150,5 +162,6 @@ module.exports = {
   // deleteUser,
   updateUser,
   getCompletedQuizzesForUser,
-  updateUserPoints
+  updateUserPoints,
+  updateUserLogin
 };
