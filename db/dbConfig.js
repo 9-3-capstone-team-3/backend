@@ -17,6 +17,6 @@ const db = pgp({
 //     user: process.env.PG_USER // removed an extra space on this line - MR
 // };
 
-const db = pgp(cn);
+// const db = pgp(cn);
 
 module.exports = db;
