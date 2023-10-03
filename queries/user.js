@@ -1,7 +1,7 @@
 const db = require("../db/dbConfig");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 
-const saltRounds = 10
+// const saltRounds = 10
 
 const getAllUsers = async () => {
   try {
@@ -11,10 +11,10 @@ const getAllUsers = async () => {
     return { error };
   }
 };
-//just a note
 
-const getUser = async (user_id) => {
-  try {//${}
+
+const getUserByID = async (user_id) => {
+  try {
     const result = await db.one("SELECT * FROM users WHERE user_id=$1", [user_id]);
 
     return { result };
@@ -23,15 +23,26 @@ const getUser = async (user_id) => {
   }
 };
 
+const getUserByEmail = async (email) => {
+  try {
+    const result = await db.one("SELECT * FROM users WHERE email=$1", [email]);
+
+    return { result };
+  } catch (error) {
+    return { error };
+  }
+};
+
+
 const createUser = async (user) => {
   try {
     // Hash the password
-    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
-    user.password = hashedPassword;
+    // const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+    // user.password = hashedPassword;
 
     // Insert into the database
     const result = await db.one(
-      `INSERT INTO users(username, email, firstname, lastname, password) 
+      `INSERT INTO users(username, email, firstname, lastname, auth_id) 
         VALUES($1, $2, $3, $4, $5) 
         RETURNING *;`,
       [
@@ -39,7 +50,7 @@ const createUser = async (user) => {
         user.email,
         user.firstname,
         user.lastname,
-        user.password  // Here, user.password is already the hashed version
+        user.auth_id  // Here, user.password is already the hashed version
         
       ]
     );
@@ -53,54 +64,51 @@ const createUser = async (user) => {
 };
 
 
-const verifyUser = async (email, password) => {
-  try {
-    const user = await db.oneOrNone(`SELECT * FROM users WHERE email = $1`, [
-      email,
-    ]);
-    if (!user) {
-      console.log("User not found with email:", email);
-      return false;
-    }
+// const verifyUser = async (email, password) => {
+//   try {
+//     const user = await db.oneOrNone(`SELECT * FROM users WHERE email = $1`, [
+//       email,
+//     ]);
+//     if (!user) {
+//       console.log("User not found with email:", email);
+//       return false;
+//     }
 
    
 
-    // Actual password check
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      console.log("Password does not match for email:", email);
-    }
-    return isMatch ? user : false;
-  } catch (error) {
-    console.error("Error in verifyUser:", error);
-    throw error;
-  }
-};
+//     // Actual password check
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     if (!isMatch) {
+//       console.log("Password does not match for email:", email);
+//     }
+//     return isMatch ? user : false;
+//   } catch (error) {
+//     console.error("Error in verifyUser:", error);
+//     throw error;
+//   }
+// };
 
-const deleteUser = async (user_id) => {
-  try {
-    const result = await db.one(
-      "DELETE FROM users WHERE user_id=$1 RETURNING *",
-      user_id
-    );
-    return { result };
-  } catch (error) {
-    return { error };
-  }
-};
+// const deleteUser = async (user_id) => {
+//   try {
+//     const result = await db.one(
+//       "DELETE FROM users WHERE user_id=$1 RETURNING *",
+//       user_id
+//     );
+//     return { result };
+//   } catch (error) {
+//     return { error };
+//   }
+// };
 
 const updateUser = async (user_id, user) => {
   try {
-    const hashedPassword = await bcrypt.hash(user.password, 10); //if password is updated hash the new one
+    // const hashedPassword = await bcrypt.hash(user.password, 10); //if password is updated hash the new one
     const result = await db.one(
-      `UPDATE users SET username=$1, email=$2, firstname=$3, lastname=$4, password=$5 WHERE user_id=$6 RETURNING *`,
+      `UPDATE users SET username=$1, firstname=$2, lastname=$3 WHERE user_id=$4 RETURNING *`,
       [
         user.username,
-        user.email,
         user.firstname,
         user.lastname,
-        hashedPassword,
-        
         user_id,
       ]
     );
@@ -135,10 +143,11 @@ const updateUserPoints = async (user_id, pointsToAdd) => {
 
 module.exports = {
   getAllUsers,
-  getUser,
+  getUserByEmail,
+  getUserByID,
   createUser,
-  verifyUser,
-  deleteUser,
+  // verifyUser,
+  // deleteUser,
   updateUser,
   getCompletedQuizzesForUser,
   updateUserPoints

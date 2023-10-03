@@ -2,8 +2,8 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require('helmet')
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+// const passport = require("passport");
+// const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session")
 const userController = require("./controllers/userControllers.js");
 const quizController = require("./controllers/quizControllers.js");
@@ -57,49 +57,49 @@ app.use(
 );
 //intialize passport middlewarea
 
-passport.use(
-  new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-  },async function (email, password, done) {
-    console.log(email, password);//remove this after debugging
+// passport.use(
+//   new LocalStrategy({
+//     usernameField: 'email',
+//     passwordField: 'password'
+//   },async function (email, password, done) {
+//     console.log(email, password);//remove this after debugging
 
-    try {
-      const user = await verifyUser(email, password);
-      console.log(user);//remove this after debugging
-      if (!user) {
-       return done(null, false, { message: "authentication failed" });
-      }
-       return done(null, user);
-    } catch (error) {
-      console.log(error);//remove this after debugging
-      return done(error);
-    }
-  })
-);
+//     try {
+//       const user = await verifyUser(email, password);
+//       console.log(user);//remove this after debugging
+//       if (!user) {
+//        return done(null, false, { message: "authentication failed" });
+//       }
+//        return done(null, user);
+//     } catch (error) {
+//       console.log(error);//remove this after debugging
+//       return done(error);
+//     }
+//   })
+// );
 
-passport.serializeUser(function (user, done) {
-  done(null, user.user_id);
-});
-passport.deserializeUser(async function (user_id, done) {
-  try{
-    const { error, result} = await getUser(user_id);
-    console.log(result);//remove this after debugging
-    if (error){
-      done(error, null)
-    } else {
-      console.log(result);//remove this after debugging
-      done(null, result);
-    }
-  } catch (error){
-    done(error, null)
-  }
-});
+// passport.serializeUser(function (user, done) {
+//   done(null, user.user_id);
+// });
+// passport.deserializeUser(async function (user_id, done) {
+//   try{
+//     const { error, result} = await getUser(user_id);
+//     console.log(result);//remove this after debugging
+//     if (error){
+//       done(error, null)
+//     } else {
+//       console.log(result);//remove this after debugging
+//       done(null, result);
+//     }
+//   } catch (error){
+//     done(error, null)
+//   }
+// });
 
 
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // Routes
 app.get("/", (req, res) => {
