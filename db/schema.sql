@@ -1,3 +1,9 @@
+DROP DATABASE IF EXISTS codefusion_db;
+CREATE DATABASE codefusion_db;
+
+\c codefusion_db;
+
+
 DROP TABLE IF EXISTS submission CASCADE;
 DROP TABLE IF EXISTS progress CASCADE;
 DROP TABLE IF EXISTS question CASCADE;
@@ -6,6 +12,10 @@ DROP TABLE IF EXISTS question_type CASCADE;
 DROP TABLE IF EXISTS quiz_video CASCADE;
 DROP TABLE IF EXISTS level CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS quiz CASCADE;
+DROP TABLE IF EXISTS user_completed_quizzes CASCADE;
+DROP TABLE IF EXISTS status CASCADE;
+DROP TABLE IF EXISTS prompt_type CASCADE;
 
 CREATE TABLE status (
     status_id SERIAL PRIMARY KEY,
@@ -58,9 +68,9 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     firstname VARCHAR(255),
     lastname VARCHAR(255),
-    password VARCHAR(255) NOT NULL,
     total_points INT DEFAULT 0,
-    last_login TIMESTAMP
+    last_login TIMESTAMP,
+    auth_id VARCHAR(255)
 );
 
 -- Create the submission table
