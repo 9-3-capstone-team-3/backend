@@ -15,7 +15,8 @@ const {
   createUser,
   deleteUser,
   updateUser,
-  updateUserPoints
+  updateUserPoints,
+  updateUserLogin
 } = require("../queries/user");
 
 user.get("/", async (req, res) => {
@@ -99,6 +100,19 @@ user.post("/:user_id/total_points", async (req, res) => {
   }
 });
 
+user.post("/:user_id/last_login", async (req, res) => {
+  
+  const { user_id } = req.params;
+  const {timestamp } = req.body
+  
+  console.log("Updating last_login:", user_id);
+  const { error, result} = await updateUserLogin(user_id, timestamp);
+  if (error) {
+    res.status(500).json({error: "server error"});
+  } else {
+    res.status(200).json(result);
+  }
+});
 
 
 user.post("/login", (req, res, next) => {
