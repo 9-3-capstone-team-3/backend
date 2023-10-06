@@ -14,9 +14,9 @@ const levels = async () => {
                 levelNumber,
                 quizId,
             ]);
-            console.log(`Updated quiz_id ${quizId} with level_number ${levelNumber}`);
+            console.log(`Updated quiz_id ${quizId} with  ${levelNumber}`);
         }
-        console.log('Level numbers updateed successfully')
+        console.log('Level numbers updated successfully')
     } catch (error) {
         console.error('Error updating level numbers', error)
     }
