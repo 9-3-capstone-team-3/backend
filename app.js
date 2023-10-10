@@ -20,7 +20,8 @@ const { verifyUser } = require("./queries/user.js");
 // Configuration
 const app = express();
 const corsOptions = {
-  origin: '*',
+  origin: ['http://localhost:3000', 'https://main--tubular-haupia-b21862.netlify.app/'],
+ 
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,  // This allows the session cookie to be sent back and forth
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -107,8 +108,7 @@ app.get("/", (req, res) => {
 
 });
 
-// Add the profile endpoint to the userProfileController
-app.use("/users/profile", userProfileController); // Note the change in the URL here: `/users/profile/:user_id`
+
 
 // Add the profile endpoint to the userProfileController
 app.use("/users/profile", userProfileController); // Note the change in the URL here: `/users/profile/:user_id`
