@@ -20,6 +20,7 @@ const { verifyUser } = require("./queries/user.js");
 // Configuration
 const app = express();
 const corsOptions = {
+  
   origin: '*',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,  // This allows the session cookie to be sent back and forth
