@@ -77,7 +77,7 @@ INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
             -- Quiz 7: Cloning a Repository (Questions)
 ('What is the first step to start with an existing codebase on GitHub?', 7, 1),
 ('Which Git command is used to clone a repository to your machine?', 7, 1),
-('What happens when you clone a repositoryto your local machine from GitHub?', 7, 1),
+('What happens when you clone a repository to your local machine from GitHub?', 7, 1),
 ('How many stages does Git operate through?', 7, 1),
 ('Which stage has all your project files that are not being tracked by Git yet?', 7, 1),
 ('Which command should you use to start tracking changes in Git?', 7, 1),
@@ -89,7 +89,7 @@ INSERT INTO question (prompt, quiz_id, prompt_type_id) VALUES
 ('How do you update the main repository on GitHub after making and committing changes?', 8, 1),
 ('If you have initialized Git in a pre-existing local project using git init, what step must you take before pushing changes to GitHub?', 8, 1),
 ('What does the git pull command do', 8, 1),
-('Why would develpers use branches in Git?', 8, 1),
+('Why would developers use branches in Git?', 8, 1),
 ('Which command creates a new branch in Git', 8, 1),
 ('How do you switch to an already existing branch in Git', 8, 1),
 ('Which command both creates a new branch and switches to it immediately?', 8, 1),
