@@ -14,14 +14,14 @@ INSERT INTO users (username, email, firstname, lastname, total_points, last_logi
 -- Insert quiz (set of questions)
 
 INSERT INTO quiz(name, video_id) VALUES 
-('Version Control', '3QHmKcs2MVY'),
-('Git Intro', '3QHmKcs2MVY'),
-('Install Git', 'hfsP3lXoSMc'),
-('GitHub Setup', 'hfsP3lXoSMc'),
-('Create Repository', 'GgUIwRtLvrw'),
-('Git Basics', 'GgUIwRtLvrw'),
-('Cloning a Project', 'FCBVWCulNgk'),
-('Updating a Repository', 'FCBVWCulNgk');
+('Version Control', 'hfsP3lXoSMc'),
+('Git Intro', 'hfsP3lXoSMc'),
+('Install Git', 'GgUIwRtLvrw'),
+('GitHub Setup', 'GgUIwRtLvrw'),
+('Create Repository', 'FCBVWCulNgk'),
+('Git Basics', 'FCBVWCulNgk'),
+('Cloning a Project', '3QHmKcs2MVY'),
+('Updating a Repository', '3QHmKcs2MVY');
 
 -- Insert question types
 INSERT INTO prompt_type(name, points) VALUES
